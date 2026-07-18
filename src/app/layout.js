@@ -125,7 +125,6 @@ export default function RootLayout({ children }) {
 
             <div className="footer-bottom">
               <p>Copyright © 2007 - 2026 Roto Star. All rights reserved.</p>
-              <p>Web Design by <span className="text-primary">SWS</span></p>
             </div>
           </div>
         </footer>
