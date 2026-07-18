@@ -1,0 +1,187 @@
+"use client";
+import { Search, ArrowRight, LayoutGrid, Info, Shield, HelpCircle } from "lucide-react";
+import Link from "next/link";
+
+export default function Products() {
+  const categories = [
+    "All Categories", "BOPP", "PET + AL + PE or CPP", "PET + PE Milky or Trans.", "Twist Wrapping Material", "BOPP Pearlized", "BOPP + CPP"
+  ];
+
+  const products = [
+    {
+      title: "BOPP",
+      desc: "High clarity, excellent printability and moisture resistance for chips, snacks and more.",
+      image: "BOPP"
+    },
+    {
+      title: "PET + AL + PE or CPP",
+      desc: "Advanced barrier protection for extended shelf life and product freshness.",
+      image: "ALU"
+    },
+    {
+      title: "PET + PE Milky or Trans.",
+      desc: "Versatile packaging with high durability and excellent seal performance.",
+      image: "MILKY"
+    },
+    {
+      title: "Twist Wrapping Material",
+      desc: "Premium twist films for candies and confectionery with superior twist retention.",
+      image: "TWIST"
+    },
+    {
+      title: "BOPP Pearlized",
+      desc: "Elegant pearlized finish for premium look and enhanced shelf appeal.",
+      image: "PEARL"
+    },
+    {
+      title: "BOPP + CPP",
+      desc: "Strong, heat-sealable solutions ideal for wide range of food applications.",
+      image: "CPP"
+    }
+  ];
+
+  return (
+    <main style={{ background: '#fff' }}>
+      {/* Hero Section */}
+      <section className="hero products-hero" style={{
+        background: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000") center/cover',
+        color: '#fff',
+        textAlign: 'center'
+      }}>
+        <div className="container">
+          <h1 className="hero-title-responsive" style={{ fontWeight: '800', marginBottom: '1rem' }}>Our Products</h1>
+          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', fontSize: '0.9rem', opacity: 0.8 }}>
+            <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
+            <span>/</span>
+            <span style={{ color: 'var(--primary)', fontWeight: '600' }}>Products</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Filter Bar */}
+      <section style={{ padding: '3rem 0', background: '#fcfcfc', borderBottom: '1px solid #eee' }}>
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
+            <div style={{ display: 'flex', gap: '0.8rem', overflowX: 'auto', paddingBottom: '0.5rem', width: '100%', maxWidth: '100%' }}>
+              {categories.map((cat, i) => (
+                <button key={i} style={{
+                  padding: '0.7rem 1.4rem',
+                  borderRadius: '6px',
+                  border: i === 0 ? 'none' : '1px solid #eee',
+                  background: i === 0 ? 'var(--primary)' : '#fff',
+                  color: '#000',
+                  fontWeight: '700',
+                  fontSize: '0.85rem',
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                  boxShadow: i === 0 ? '0 4px 12px rgba(255,189,0,0.2)' : 'none'
+                }}>
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', width: '100%', justifyContent: 'space-between' }}>
+              <div style={{ position: 'relative', flex: '1', minWidth: '250px' }}>
+                <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#888' }} />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  style={{ padding: '0.75rem 1rem 0.75rem 2.8rem', borderRadius: '8px', border: '1px solid #eee', outline: 'none', width: '100%', fontSize: '0.9rem' }}
+                />
+              </div>
+              <select style={{ padding: '0.75rem 1rem', borderRadius: '8px', border: '1px solid #eee', outline: 'none', cursor: 'pointer', fontSize: '0.9rem', background: '#fff', minWidth: '150px' }}>
+                <option>Sort by: Popular</option>
+                <option>Newest First</option>
+                <option>Name A-Z</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Grid */}
+      <section style={{ padding: '6rem 0' }}>
+        <div className="container">
+          <div className="grid-3">
+            {products.map((product, i) => (
+              <Link href="/products/detail" key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div className="product-card-horizontal">
+                  <div style={{
+                    width: '130px',
+                    height: '150px',
+                    background: '#f8f8f8',
+                    borderRadius: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    border: '1px solid #f0f0f0'
+                  }}>
+                    <div style={{ color: '#ccc', fontWeight: '900', fontSize: '0.8rem', letterSpacing: '1px' }}>{product.image}</div>
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '0.8rem', color: '#111' }}>{product.title}</h3>
+                    <p style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.6', marginBottom: '1.8rem' }}>{product.desc}</p>
+                    <div style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '50%',
+                      background: 'var(--primary)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 4px 10px rgba(255,189,0,0.3)'
+                    }}>
+                      <ArrowRight size={18} color="#000" strokeWidth={2.5} />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Custom Solution Banner */}
+          <div className="custom-solution-banner">
+            <div className="banner-content">
+              <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#F9F9F9', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #eee', flexShrink: 0 }}>
+                <HelpCircle className="text-primary" size={32} />
+              </div>
+              <div className="banner-text">
+                <h4 style={{ fontWeight: '800', fontSize: '1.4rem', marginBottom: '0.4rem' }}>Looking for a custom solution?</h4>
+                <p style={{ color: '#666', fontSize: '1rem' }}>Our team can help you choose the right material for your product.</p>
+              </div>
+            </div>
+            <Link href="/contact" className="btn btn-primary" style={{ padding: '1.2rem 3rem', borderRadius: '10px', gap: '12px', fontSize: '1rem' }}>
+              Request a Quote <ArrowRight size={20} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer Info Bar */}
+      <section style={{ background: '#111', color: '#fff', padding: '4rem 0' }}>
+        <div className="container">
+          <div className="grid-4">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+              <div style={{ color: 'var(--primary)' }}><LayoutGrid size={28} /></div>
+              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Comprehensive Product Range</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+              <div style={{ color: 'var(--primary)' }}><Search size={28} /></div>
+              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Easy Search & Filtering</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+              <div style={{ color: 'var(--primary)' }}><Info size={28} /></div>
+              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Premium Visual Presentation</div>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+              <div style={{ color: 'var(--primary)' }}><Shield size={28} /></div>
+              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Material Clarity & Performance</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
