@@ -18,21 +18,21 @@ export default function Home() {
       id: 2,
       tag: "High Barrier",
       title: "Snack Solutions",
-      image: "https://images.unsplash.com/photo-1599490659223-ef5202951966?q=80&w=1200",
+      image: "https://www.rixona.com/_next/image?url=https%3A%2F%2Faviko-eu.s3.eu-west-2.amazonaws.com%2Frixona%2F2024-07%2Fsnacks_0.jpg&w=1920&q=100",
       desc: "Keeping snacks crisp and fresh for longer shelf life."
     },
     {
       id: 3,
       tag: "Technology",
       title: "Rotogravure Printing",
-      image: "https://images.unsplash.com/photo-1626607085183-5163f972008e?q=80&w=1200",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8i3Zxhr9V_bRSSMH0BRg0muuU3LgCEFV2k9bts5f2RWF0oOakicbeUoI&s=10",
       desc: "Precision printing with up to 10 high-definition colors."
     },
     {
       id: 4,
       tag: "Eco-Friendly",
       title: "Sustainable Films",
-      image: "https://images.unsplash.com/photo-1605600611220-b7c6a2ed6740?q=80&w=1200",
+      image: "https://ppcflex.com/wp-content/uploads/2025/11/sustainability.jpg",
       desc: "Next-generation recyclable packaging materials."
     },
     {
