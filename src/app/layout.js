@@ -5,7 +5,7 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Menu, X } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -15,6 +15,15 @@ const poppins = Poppins({
 
 export default function RootLayout({ children }) {
   const navToggleRef = useRef(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const closeMenu = () => {
     if (navToggleRef.current) {
@@ -25,7 +34,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable}`}>
       <body className="antialiased">
-        <nav>
+        <nav className={scrolled ? "scrolled" : ""}>
           <div className="container nav-container">
             <Link href="/" className="logo" onClick={closeMenu}>
               <Image
@@ -73,7 +82,7 @@ export default function RootLayout({ children }) {
         <footer className="footer-main">
           <div className="container">
             <div className="footer-grid">
-              <div>
+              <div className="animate-fade-up">
                 <Link href="/" className="logo" style={{ marginBottom: '1.5rem' }}>
                   <Image
                     src="/logo.png"
@@ -91,7 +100,7 @@ export default function RootLayout({ children }) {
                 </p>
               </div>
 
-              <div>
+              <div className="animate-fade-up delay-1">
                 <h4 className="footer-title">Quick Links</h4>
                 <ul className="footer-links">
                   <li><Link href="/">Home</Link></li>
@@ -102,7 +111,7 @@ export default function RootLayout({ children }) {
                 </ul>
               </div>
 
-              <div>
+              <div className="animate-fade-up delay-2">
                 <h4 className="footer-title">Contact Us</h4>
                 <div className="footer-contact">
                   <div className="contact-item">

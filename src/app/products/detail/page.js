@@ -46,7 +46,7 @@ export default function ProductDetail() {
   return (
     <main style={{ background: '#fff', paddingTop: '8rem' }}>
       <div className="container">
-        <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.8rem', color: '#888', marginBottom: '2rem', flexWrap: 'wrap' }}>
+        <div className="animate-fade" style={{ display: 'flex', gap: '0.5rem', fontSize: '0.8rem', color: '#888', marginBottom: '2rem', flexWrap: 'wrap' }}>
           <Link href="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link> /
           <Link href="/products" style={{ color: 'inherit', textDecoration: 'none', marginLeft: '5px' }}>Products</Link> /
           <span style={{ marginLeft: '5px' }}>BOPP</span> /
@@ -54,8 +54,8 @@ export default function ProductDetail() {
         </div>
 
         <div className="product-detail-grid">
-          <div>
-            <div className="product-main-image">
+          <div className="animate-fade-up">
+            <div className="product-main-image animate-fade">
                <div style={{ textAlign: 'center' }}>
                   <div style={{ fontSize: '2rem', fontWeight: '900', color: '#ddd' }}>PRODUCT IMAGE</div>
                   <div style={{ fontSize: '0.9rem', color: '#aaa', marginTop: '1rem' }}>ZAIN POTATO CHIPS</div>
@@ -64,7 +64,7 @@ export default function ProductDetail() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} style={{
+                <div key={i} className={`animate-fade-up delay-${(i % 3) + 1}`} style={{
                   aspectRatio: '1',
                   background: '#F9F9F9',
                   borderRadius: '8px',
@@ -73,14 +73,16 @@ export default function ProductDetail() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: '#ccc',
-                  fontSize: '0.7rem'
+                  fontSize: '0.7rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
                 }}>THUMB {i}</div>
               ))}
             </div>
           </div>
 
           <div>
-            <div style={{ marginBottom: '2.5rem' }}>
+            <div style={{ marginBottom: '2.5rem' }} className="animate-fade-up delay-1">
               <span style={{
                 background: 'var(--primary)',
                 color: '#000',
@@ -101,21 +103,21 @@ export default function ProductDetail() {
               <div style={{ flex: 1 }}>
                 <div className="product-specs-grid">
                   {specs.map((spec, i) => (
-                    <div key={i}>
+                    <div key={i} className={`animate-fade-up delay-${(i % 3) + 1}`}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.5rem' }}>
                         {spec.icon}
                         <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#111' }}>{spec.title}</h4>
                       </div>
-                      <p style={{ fontSize: '0.8rem', color: '#666', paddingLeft: '2rem', lineHeight: '1.4' }}>{spec.desc}</p>
+                      <p style={{ fontSize: '0.8rem', color: '#666', paddingLeft: '2.8rem', lineHeight: '1.4' }}>{spec.desc}</p>
                     </div>
                   ))}
                 </div>
 
-                <div>
+                <div className="animate-fade-up delay-3">
                   <h4 style={{ fontSize: '0.9rem', fontWeight: '800', marginBottom: '1.2rem', color: '#111' }}>Key Benefits</h4>
                   <div className="product-benefits-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.8rem' }}>
                     {benefits.map((benefit, i) => (
-                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                      <div key={i} className="animate-fade delay-3" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                         <div style={{ color: 'var(--primary)' }}><Check size={16} strokeWidth={3} /></div>
                         <span style={{ fontSize: '0.8rem', color: '#444', fontWeight: '500' }}>{benefit}</span>
                       </div>
@@ -124,17 +126,19 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              <div className="product-sidebar-card">
+              <div className="product-sidebar-card animate-fade-up delay-2">
                 <div style={{
                   background: '#000',
                   color: '#fff',
                   padding: '2rem',
                   borderRadius: '16px',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                  border: '1px solid rgba(255,255,255,0.05)'
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
                     <div style={{ background: '#222', padding: '0.8rem', borderRadius: '12px' }}>
-                       <Check size={24} className="text-primary" />
+                       <Check size={24} className="text-primary pulse-soft" />
                     </div>
                   </div>
                   <h4 style={{ fontWeight: '800', fontSize: '1.1rem', marginBottom: '1rem' }}>Request a Quote</h4>
@@ -153,8 +157,9 @@ export default function ProductDetail() {
                     fontSize: '0.8rem',
                     marginTop: '1.5rem',
                     textDecoration: 'none',
-                    opacity: 0.8
-                  }}>
+                    opacity: 0.8,
+                    transition: 'opacity 0.3s ease'
+                  }} className="hover-opacity-100">
                     <Download size={16} /> Download Datasheet
                   </a>
                 </div>

@@ -49,8 +49,8 @@ export default function Products() {
         textAlign: 'center'
       }}>
         <div className="container">
-          <h1 className="hero-title-responsive" style={{ fontWeight: '800', marginBottom: '1rem' }}>Our Products</h1>
-          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', fontSize: '0.9rem', opacity: 0.8 }}>
+          <h1 className="hero-title-responsive animate-fade-up" style={{ fontWeight: '800', marginBottom: '1rem' }}>Our Products</h1>
+          <div className="animate-fade delay-1" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', fontSize: '0.9rem', opacity: 0.8 }}>
             <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
             <span>/</span>
             <span style={{ color: 'var(--primary)', fontWeight: '600' }}>Products</span>
@@ -62,9 +62,9 @@ export default function Products() {
       <section style={{ padding: '3rem 0', background: '#fcfcfc', borderBottom: '1px solid #eee' }}>
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
-            <div style={{ display: 'flex', gap: '0.8rem', overflowX: 'auto', paddingBottom: '0.5rem', width: '100%', maxWidth: '100%' }}>
+            <div className="animate-fade" style={{ display: 'flex', gap: '0.8rem', overflowX: 'auto', paddingBottom: '0.5rem', width: '100%', maxWidth: '100%' }}>
               {categories.map((cat, i) => (
-                <button key={i} style={{
+                <button key={i} className="filter-btn" style={{
                   padding: '0.7rem 1.4rem',
                   borderRadius: '6px',
                   border: i === 0 ? 'none' : '1px solid #eee',
@@ -74,14 +74,15 @@ export default function Products() {
                   fontSize: '0.85rem',
                   whiteSpace: 'nowrap',
                   cursor: 'pointer',
-                  boxShadow: i === 0 ? '0 4px 12px rgba(255,189,0,0.2)' : 'none'
+                  boxShadow: i === 0 ? '0 4px 12px rgba(255,189,0,0.2)' : 'none',
+                  transition: 'all 0.3s ease'
                 }}>
                   {cat}
                 </button>
               ))}
             </div>
 
-            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', width: '100%', justifyContent: 'space-between' }}>
+            <div className="animate-fade-up delay-1" style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', width: '100%', justifyContent: 'space-between' }}>
               <div style={{ position: 'relative', flex: '1', minWidth: '250px' }}>
                 <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#888' }} />
                 <input
@@ -105,9 +106,9 @@ export default function Products() {
         <div className="container">
           <div className="grid-3">
             {products.map((product, i) => (
-              <Link href="/products/detail" key={i} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href="/products/detail" key={i} className={`animate-fade-up delay-${(i % 3) + 1}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="product-card-horizontal">
-                  <div style={{
+                  <div className="product-img-wrapper" style={{
                     width: '130px',
                     height: '150px',
                     background: '#f8f8f8',
@@ -116,14 +117,15 @@ export default function Products() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
-                    border: '1px solid #f0f0f0'
+                    border: '1px solid #f0f0f0',
+                    overflow: 'hidden'
                   }}>
-                    <div style={{ color: '#ccc', fontWeight: '900', fontSize: '0.8rem', letterSpacing: '1px' }}>{product.image}</div>
+                    <div className="product-img-text" style={{ color: '#ccc', fontWeight: '900', fontSize: '0.8rem', letterSpacing: '1px', transition: 'transform 0.5s ease' }}>{product.image}</div>
                   </div>
                   <div style={{ flex: 1 }}>
                     <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '0.8rem', color: '#111' }}>{product.title}</h3>
                     <p style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.6', marginBottom: '1.8rem' }}>{product.desc}</p>
-                    <div style={{
+                    <div className="arrow-icon-circle" style={{
                       width: '36px',
                       height: '36px',
                       borderRadius: '50%',
@@ -131,7 +133,8 @@ export default function Products() {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: '0 4px 10px rgba(255,189,0,0.3)'
+                      boxShadow: '0 4px 10px rgba(255,189,0,0.3)',
+                      transition: 'all 0.3s ease'
                     }}>
                       <ArrowRight size={18} color="#000" strokeWidth={2.5} />
                     </div>
@@ -142,10 +145,10 @@ export default function Products() {
           </div>
 
           {/* Custom Solution Banner */}
-          <div className="custom-solution-banner">
+          <div className="custom-solution-banner animate-fade-up">
             <div className="banner-content">
               <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#F9F9F9', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #eee', flexShrink: 0 }}>
-                <HelpCircle className="text-primary" size={32} />
+                <HelpCircle className="text-primary pulse-soft" size={32} />
               </div>
               <div className="banner-text">
                 <h4 style={{ fontWeight: '800', fontSize: '1.4rem', marginBottom: '0.4rem' }}>Looking for a custom solution?</h4>
@@ -163,19 +166,19 @@ export default function Products() {
       <section style={{ background: '#111', color: '#fff', padding: '4rem 0' }}>
         <div className="container">
           <div className="grid-4">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+            <div className="animate-fade-up delay-1" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
               <div style={{ color: 'var(--primary)' }}><LayoutGrid size={28} /></div>
               <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Comprehensive Product Range</div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+            <div className="animate-fade-up delay-2" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
               <div style={{ color: 'var(--primary)' }}><Search size={28} /></div>
               <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Easy Search & Filtering</div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+            <div className="animate-fade-up delay-3" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
               <div style={{ color: 'var(--primary)' }}><Info size={28} /></div>
               <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Premium Visual Presentation</div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+            <div className="animate-fade-up delay-1" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
               <div style={{ color: 'var(--primary)' }}><Shield size={28} /></div>
               <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Material Clarity & Performance</div>
             </div>
