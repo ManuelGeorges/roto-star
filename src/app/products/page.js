@@ -1,8 +1,12 @@
 "use client";
 import { Search, ArrowRight, LayoutGrid, Info, Shield, HelpCircle } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Products() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All Categories");
+
   const categories = [
     "All Categories", "BOPP", "PET + AL + PE or CPP", "PET + PE Milky or Trans.", "Twist Wrapping Material", "BOPP Pearlized", "BOPP + CPP"
   ];
@@ -10,41 +14,54 @@ export default function Products() {
   const products = [
     {
       title: "BOPP",
+      slug: "bopp",
       desc: "High clarity, excellent printability and moisture resistance for chips, snacks and more.",
-      image: "BOPP"
+      image: "https://images.pexels.com/photos/18541872/pexels-photo-18541872.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       title: "PET + AL + PE or CPP",
+      slug: "pet-al-pe-or-cpp",
       desc: "Advanced barrier protection for extended shelf life and product freshness.",
-      image: "ALU"
+      image: "https://images.pexels.com/photos/2691359/pexels-photo-2691359.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       title: "PET + PE Milky or Trans.",
+      slug: "pet-pe-milky-or-trans",
       desc: "Versatile packaging with high durability and excellent seal performance.",
-      image: "MILKY"
+      image: "https://images.pexels.com/photos/6159701/pexels-photo-6159701.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       title: "Twist Wrapping Material",
+      slug: "twist-wrapping-material",
       desc: "Premium twist films for candies and confectionery with superior twist retention.",
-      image: "TWIST"
+      image: "https://images.pexels.com/photos/5469042/pexels-photo-5469042.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       title: "BOPP Pearlized",
+      slug: "bopp-pearlized",
       desc: "Elegant pearlized finish for premium look and enhanced shelf appeal.",
-      image: "PEARL"
+      image: "https://images.pexels.com/photos/2612938/pexels-photo-2612938.jpeg?auto=compress&cs=tinysrgb&w=400"
     },
     {
       title: "BOPP + CPP",
+      slug: "bopp-cpp",
       desc: "Strong, heat-sealable solutions ideal for wide range of food applications.",
-      image: "CPP"
+      image: "https://images.pexels.com/photos/7414934/pexels-photo-7414934.jpeg?auto=compress&cs=tinysrgb&w=400"
     }
   ];
+
+  const filteredProducts = products.filter(p => {
+    const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         p.desc.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = activeCategory === "All Categories" || p.title === activeCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <main style={{ background: '#fff' }}>
       {/* Hero Section */}
       <section className="hero products-hero" style={{
-        background: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=2000") center/cover',
+        background: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("https://images.pexels.com/photos/7178310/pexels-photo-7178310.jpeg?auto=compress&cs=tinysrgb&w=2000") center/cover',
         color: '#fff',
         textAlign: 'center'
       }}>
@@ -62,21 +79,26 @@ export default function Products() {
       <section style={{ padding: '3rem 0', background: '#fcfcfc', borderBottom: '1px solid #eee' }}>
         <div className="container">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
-            <div className="animate-fade" style={{ display: 'flex', gap: '0.8rem', overflowX: 'auto', paddingBottom: '0.5rem', width: '100%', maxWidth: '100%' }}>
+            <div className="animate-fade filter-container-scroll">
               {categories.map((cat, i) => (
-                <button key={i} className="filter-btn" style={{
-                  padding: '0.7rem 1.4rem',
-                  borderRadius: '6px',
-                  border: i === 0 ? 'none' : '1px solid #eee',
-                  background: i === 0 ? 'var(--primary)' : '#fff',
-                  color: '#000',
-                  fontWeight: '700',
-                  fontSize: '0.85rem',
-                  whiteSpace: 'nowrap',
-                  cursor: 'pointer',
-                  boxShadow: i === 0 ? '0 4px 12px rgba(255,189,0,0.2)' : 'none',
-                  transition: 'all 0.3s ease'
-                }}>
+                <button
+                  key={i}
+                  onClick={() => setActiveCategory(cat)}
+                  className="filter-btn"
+                  style={{
+                    padding: '0.7rem 1.4rem',
+                    borderRadius: '6px',
+                    border: activeCategory === cat ? 'none' : '1px solid #eee',
+                    background: activeCategory === cat ? 'var(--primary)' : '#fff',
+                    color: '#000',
+                    fontWeight: '700',
+                    fontSize: '0.85rem',
+                    whiteSpace: 'nowrap',
+                    cursor: 'pointer',
+                    boxShadow: activeCategory === cat ? '0 4px 12px rgba(255,189,0,0.2)' : 'none',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
                   {cat}
                 </button>
               ))}
@@ -88,14 +110,11 @@ export default function Products() {
                 <input
                   type="text"
                   placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   style={{ padding: '0.75rem 1rem 0.75rem 2.8rem', borderRadius: '8px', border: '1px solid #eee', outline: 'none', width: '100%', fontSize: '0.9rem' }}
                 />
               </div>
-              <select style={{ padding: '0.75rem 1rem', borderRadius: '8px', border: '1px solid #eee', outline: 'none', cursor: 'pointer', fontSize: '0.9rem', background: '#fff', minWidth: '150px' }}>
-                <option>Sort by: Popular</option>
-                <option>Newest First</option>
-                <option>Name A-Z</option>
-              </select>
             </div>
           </div>
         </div>
@@ -105,8 +124,8 @@ export default function Products() {
       <section style={{ padding: '6rem 0' }}>
         <div className="container">
           <div className="grid-3">
-            {products.map((product, i) => (
-              <Link href="/products/detail" key={i} className={`animate-fade-up delay-${(i % 3) + 1}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            {filteredProducts.map((product, i) => (
+              <Link href={`/products/detail?type=${product.slug}`} key={i} className={`animate-fade-up delay-${(i % 3) + 1}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="product-card-horizontal">
                   <div className="product-img-wrapper" style={{
                     width: '130px',
@@ -120,7 +139,13 @@ export default function Products() {
                     border: '1px solid #f0f0f0',
                     overflow: 'hidden'
                   }}>
-                    <div className="product-img-text" style={{ color: '#ccc', fontWeight: '900', fontSize: '0.8rem', letterSpacing: '1px', transition: 'transform 0.5s ease' }}>{product.image}</div>
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                      className="product-img-photo"
+                      loading="lazy"
+                    />
                   </div>
                   <div style={{ flex: 1 }}>
                     <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '0.8rem', color: '#111' }}>{product.title}</h3>
