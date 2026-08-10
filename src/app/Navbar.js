@@ -3,27 +3,37 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function Navbar() {
-  const toggleRef = useRef(null);
+  const navToggleRef = useRef(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const closeMenu = () => {
-    if (toggleRef.current) {
-      toggleRef.current.checked = false;
+    if (navToggleRef.current) {
+      navToggleRef.current.checked = false;
     }
   };
 
   return (
-    <nav>
+    <nav className={scrolled ? "scrolled" : ""}>
       <div className="container nav-container">
         <Link href="/" className="logo" onClick={closeMenu}>
           <Image
             src="/logo.png"
-            alt="Roto Star Logo"
+            alt="Roto Star Logo - Flexible Packaging Leader"
             width={40}
             height={40}
-            style={{ objectFit: 'contain' }}
+            style={{ objectFit: 'contain', height: 'auto' }}
+            priority
           />
           <div className="logo-text">
             <div className="brand-name">Roto Star</div>
@@ -35,7 +45,7 @@ export default function Navbar() {
           type="checkbox"
           id="nav-toggle"
           className="nav-toggle"
-          ref={toggleRef}
+          ref={navToggleRef}
         />
 
         <label htmlFor="nav-toggle" className="nav-toggle-label">

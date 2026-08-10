@@ -1,7 +1,12 @@
 "use client";
-import { MapPin, Phone, Clock } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 
 export default function Contact() {
+  const mapAddress = "Second Industrial Zone - Block 1, Piece 3, Borg El-Arab City, Alexandria, Egypt";
+  const mapQuery = encodeURIComponent(mapAddress);
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+  const embedUrl = `https://maps.google.com/maps?q=${mapQuery}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <main style={{ background: '#fff' }}>
       {/* Hero Section */}
@@ -73,16 +78,41 @@ export default function Contact() {
             </div>
 
             {/* Map */}
-            <div className="animate-fade delay-2" style={{ width: '100%', height: '450px', background: '#111', borderRadius: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', position: 'relative', boxShadow: '0 40px 80px rgba(0,0,0,0.15)', transition: 'transform 0.5s ease' }}>
-              {/* Decorative map element */}
-              <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0.2, background: 'radial-gradient(circle at 30% 40%, var(--primary) 0%, transparent 60%)', animation: 'rotate-slow 20s linear infinite' }}></div>
-              <div style={{ textAlign: 'center', color: '#fff', position: 'relative', zIndex: 1 }}>
-                <div className="pulse-soft" style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(255,189,0,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
-                  <MapPin size={36} className="text-primary" />
-                </div>
-                <h4 style={{ fontWeight: '700', marginBottom: '0.5rem', fontSize: '1.2rem' }}>Find Us on Google Maps</h4>
-                <p style={{ fontSize: '0.9rem', color: '#aaa', maxWidth: '240px', margin: '0 auto' }}>Borg El-Arab Industrial City, Alexandria, Egypt</p>
-                <a href="https://maps.google.com" target="_blank" className="btn btn-primary" style={{ marginTop: '2rem', borderRadius: '8px' }}>Open Maps</a>
+            <div className="animate-fade delay-2" style={{ width: '100%', height: '450px', background: '#000', borderRadius: '32px', overflow: 'hidden', position: 'relative', boxShadow: '0 40px 80px rgba(0,0,0,0.15)' }}>
+              <iframe
+                src={embedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+
+              <div style={{
+                position: 'absolute',
+                bottom: '20px',
+                right: '20px',
+                zIndex: 10
+              }}>
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  style={{
+                    borderRadius: '12px',
+                    padding: '0.8rem 1.5rem',
+                    fontSize: '0.85rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 10px 25px rgba(255,189,0,0.3)',
+                    border: 'none'
+                  }}
+                >
+                  <ExternalLink size={16} /> Open in Google Maps
+                </a>
               </div>
             </div>
           </div>
