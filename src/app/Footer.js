@@ -38,24 +38,18 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Roto Star on Facebook"
-                className="flex items-center justify-center w-10 h-10 rounded-full
-                           bg-primary/10 text-primary border border-primary/20
-                           transition-all duration-300 ease-in-out
-                           hover:bg-primary hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/25"
+                className="text-primary transition-all duration-300 ease-in-out hover:opacity-80 hover:-translate-y-1"
               >
-                <FacebookIcon size={20} />
+                <FacebookIcon size={24} />
               </a>
               <a
                 href="https://www.instagram.com/rotostar.socialmedia/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Roto Star on Instagram"
-                className="flex items-center justify-center w-10 h-10 rounded-full
-                           bg-primary/10 text-primary border border-primary/20
-                           transition-all duration-300 ease-in-out
-                           hover:bg-primary hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/25"
+                className="text-primary transition-all duration-300 ease-in-out hover:opacity-80 hover:-translate-y-1"
               >
-                <InstagramIcon size={20} />
+                <InstagramIcon size={24} />
               </a>
             </div>
           </div>

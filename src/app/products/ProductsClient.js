@@ -22,7 +22,7 @@ export default function ProductsClient() {
       title: "PET + AL + PE or CPP",
       slug: "pet-al-pe-or-cpp",
       desc: "Advanced barrier protection for extended shelf life and product freshness.",
-      image: "/images/mockup/Fakakes/Vacakis 100g mockup.webp"
+      image: "/images/mockup/Fakakes/Vacakis 100g mockup 2.webp"
     },
     {
       title: "PET + PE Milky or Trans.",
@@ -34,7 +34,7 @@ export default function ProductsClient() {
       title: "Twist Wrapping Material",
       slug: "twist-wrapping-material",
       desc: "Premium twist films for candies and confectionery with superior twist retention.",
-      image: "/images/mockup/Swareen/cndy mockup hert 2.webp"
+      image: "/images/mockup/ChocoSyria/Nay mockup nero.webp"
     },
     {
       title: "BOPP Pearlized",

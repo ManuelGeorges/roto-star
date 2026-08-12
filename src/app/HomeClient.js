@@ -1,5 +1,5 @@
 "use client";
-import { Users, Globe, ShieldCheck, Clock, ArrowRight, ChevronLeft, ChevronRight, Palette } from "lucide-react";
+import { Users, Globe, ShieldCheck, Clock, ArrowRight, ChevronLeft, ChevronRight, Palette, Quote } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
 
@@ -68,7 +68,7 @@ export default function HomeClient() {
                 <Link href="/products" className="btn btn-primary btn-glow">
                   Explore Products <ArrowRight size={18} />
                 </Link>
-                <Link href="/contact" className="btn btn-outline">Consult Our Experts</Link>
+                <Link href="/contact" className="btn btn-outline">Contact Us</Link>
               </div>
             </div>
 
@@ -111,6 +111,114 @@ export default function HomeClient() {
           </div>
         </div>
         <div className="hero-bg-pattern"></div>
+      </section>
+
+      {/* About Roto Star Section */}
+      <section className="section" style={{ background: '#fff', position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'absolute',
+          top: '10%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100%',
+          height: '100%',
+          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(255, 189, 0, 0.03) 0%, transparent 70%)',
+          zIndex: 0
+        }}></div>
+
+        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+          <div className="text-center animate-fade-up" style={{ marginBottom: '4.5rem' }}>
+            <h2 className="section-title" style={{ marginBottom: '1.2rem', color: 'var(--black)' }}>Roto Star in a word...</h2>
+            <div style={{ width: '80px', height: '4px', background: 'var(--primary)', margin: '0 auto' }}></div>
+          </div>
+
+          <div className="animate-fade-up delay-1" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+            <div style={{
+              position: 'relative',
+              padding: '0 2rem',
+              marginBottom: '4rem',
+              textAlign: 'center'
+            }}>
+              <Quote
+                size={80}
+                style={{
+                  position: 'absolute',
+                  top: '-30px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  color: 'var(--primary)',
+                  opacity: 0.1,
+                  zIndex: -1
+                }}
+              />
+              <h3 style={{
+                fontSize: 'clamp(1.4rem, 2.8vw, 2.4rem)',
+                fontWeight: '800',
+                color: 'var(--black)',
+                lineHeight: '1.25',
+                letterSpacing: '-0.02em',
+                maxWidth: '900px',
+                margin: '0 auto'
+              }}>
+                "We help businesses to express their ideas effectively through our complete printing solutions"
+              </h3>
+            </div>
+
+            <div className="grid-3" style={{
+              gap: '2.5rem',
+              textAlign: 'left'
+            }}>
+              <div className="animate-fade-up delay-2" style={{
+                padding: '2.5rem',
+                background: 'var(--gray-100)',
+                borderRadius: '24px',
+                border: '1px solid #f0f0f0',
+                transition: 'transform 0.3s ease'
+              }}>
+                <div style={{ color: 'var(--primary)', fontWeight: '900', fontSize: '1.2rem', marginBottom: '1rem' }}>1996</div>
+                <p style={{ color: 'var(--gray-600)', fontSize: '0.95rem', lineHeight: '1.8' }}>
+                  Established in the economic capital of Syria, Aleppo, under the name <strong>Aleppo Printing</strong>, specializing in flexographic and rotogravure technologies.
+                </p>
+              </div>
+
+              <div className="animate-fade-up delay-3" style={{
+                padding: '2.5rem',
+                background: 'var(--gray-100)',
+                borderRadius: '24px',
+                border: '1px solid #f0f0f0',
+                transition: 'transform 0.3s ease'
+              }}>
+                <div style={{ color: 'var(--primary)', fontWeight: '900', fontSize: '1.2rem', marginBottom: '1rem' }}>2013</div>
+                <p style={{ color: 'var(--gray-600)', fontSize: '0.95rem', lineHeight: '1.8' }}>
+                  Manufacturing activity transferred to Egypt (Borg El Arab, Alexandria), rebranding as <strong>Roto Star</strong> to serve a broader international market.
+                </p>
+              </div>
+
+              <div className="animate-fade-up delay-4" style={{
+                padding: '2.5rem',
+                background: 'var(--gray-100)',
+                borderRadius: '24px',
+                border: '1px solid #f0f0f0',
+                transition: 'transform 0.3s ease'
+              }}>
+                <div style={{ color: 'var(--primary)', fontWeight: '900', fontSize: '1.2rem', marginBottom: '1rem' }}>Today</div>
+                <p style={{ color: 'var(--gray-600)', fontSize: '0.95rem', lineHeight: '1.8' }}>
+                  Delivering high-performance Rotogravure solutions across all substrates (BOPP, PE, PET, Alu, Paper) in single and multi-layer structures.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+          .grid-3 div:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+          }
+          @media (max-width: 900px) {
+            .grid-3 { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
       </section>
 
       <section className="section bg-white" style={{ padding: '8rem 0' }}>
@@ -210,30 +318,7 @@ export default function HomeClient() {
               <p className="section-desc" style={{ margin: '0 auto' }}>From specialized barrier films for delicate products to robust industrial solutions, we redefine how your product reaches the consumer.</p>
             </div>
           </div>
-          <div className="grid-4 product-grid-alt">
-            {[
-              { id: 'TEA', name: 'TEA PACKAGING', img: '/images/carousel/22.webp' },
-              { id: 'COFFEE', name: 'COFFEE BAGS', img: '/images/carousel/23.webp' },
-              { id: 'PROTEIN', name: 'NUTRITION', img: '/images/carousel/25.webp' },
-              { id: 'SNACKS', name: 'FOOD & SNACKS', img: '/images/carousel/21.webp' }
-            ].map((item, index) => (
-              <div key={item.id} className={`product-card-preview animate-fade-up delay-${(index % 3) + 1}`}>
-                <div className="product-img-placeholder" style={{
-                  backgroundImage: `url("${item.img}")`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}>
-                  <div className="product-img-overlay"></div>
-                  <div className="product-img-tag">{item.id}</div>
-                </div>
-                <div className="product-info-minimal">
-                   {item.name}
-                </div>
-              </div>
-            ))}
-          </div>
+
           <div className="text-center" style={{ marginTop: '4rem' }}>
              <Link href="/products" className="btn btn-primary animate-fade-up">
               View Product Catalog <ArrowRight size={18} />

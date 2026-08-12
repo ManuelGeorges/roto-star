@@ -77,7 +77,7 @@ export default function ProcessClient() {
             <div style={{ width: '80px', height: '4px', background: 'var(--primary)', margin: '2.5rem auto' }}></div>
           </div>
 
-          <div className="grid-3 steps-grid">
+          <div className="grid-3 steps-grid" style={{ gap: '3rem' }}>
             {[
               {
                 icon: Lightbulb,
@@ -272,7 +272,7 @@ export default function ProcessClient() {
         .hero-section { padding-top: clamp(10rem, 18vw, 14rem); padding-bottom: clamp(4rem, 9vw, 8rem); }
         .hero-title { font-size: clamp(2.1rem, 5.5vw, 3.8rem); }
         .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; }
-        .process-card { padding: clamp(2.25rem, 5vw, 4rem) clamp(1.5rem, 4vw, 2.5rem); border-radius: 24px; }
+        .process-card { padding: clamp(4rem, 8vw, 6rem) clamp(3rem, 7vw, 5rem); border-radius: 24px; }
         .icon-wrapper { width: clamp(76px, 10vw, 100px); height: clamp(76px, 10vw, 100px); }
         .experience-badge { bottom: clamp(16px, 4vw, 40px); right: clamp(-8px, -1vw, -20px); padding: clamp(1rem, 2.5vw, 2rem); }
         .experience-badge-num { font-size: clamp(1.7rem, 4vw, 2.5rem); }

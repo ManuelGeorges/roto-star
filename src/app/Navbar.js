@@ -59,10 +59,9 @@ export default function Navbar() {
             <li><Link href="/company" onClick={closeMenu}>Company</Link></li>
             <li><Link href="/process" onClick={closeMenu}>Our Process</Link></li>
             <li><Link href="/products" onClick={closeMenu}>Products</Link></li>
-            <li><Link href="/contact" onClick={closeMenu}>Contact Us</Link></li>
           </ul>
           <div className="nav-actions">
-            <Link href="/contact" className="btn btn-primary btn-sm" onClick={closeMenu}>Get a Quote</Link>
+            <Link href="/contact" className="btn btn-primary btn-sm" onClick={closeMenu}>Contact us</Link>
           </div>
         </div>
       </div>

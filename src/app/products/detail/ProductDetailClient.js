@@ -35,9 +35,9 @@ const productData = {
       "(available from 20u to 100u)"
     ],
     items: [
-      { name: "Cocoa Powder", image: "/images/mockup/Fakakes/Vacakis 100g mockup.webp" },
+      { name: "Cocoa Powder", image: "/images/mockup/ChocoSyria/Wafer serial  40gmockup cocoa.webp" },
       { name: "Coffee Mix", image: "/images/mockup/Fakakes/Vacakis coffee 10g Mockup3.webp" },
-      { name: "Vacuum Coffee", image: "/images/mockup/Fakakes/Vacakis 100g mockup 2.webp" },
+      { name: "Vacuum Coffee", image: "/images/mockup/Fakakes/Vacakis 100g mockup.webp" },
       { name: "Nuts", image: "/images/mockup/El Raya/Mora mockup 1.webp" },
       { name: "Crackers", image: "/images/mockup/El Raya/Mora mockup 2.webp" },
       { name: "Flavour Powder", image: "/images/mockup/Al Nuba/mockup1.webp" }
@@ -70,7 +70,7 @@ const productData = {
       "Transparent - Milky - Metalize"
     ],
     items: [
-      { name: "Bonbon", image: "/images/mockup/Swareen/cndy mockup hert 3.webp" },
+      { name: "Naay Cocoa", image: "/images/mockup/ChocoSyria/Nay mockup nero.webp" },
       { name: "Chocolate Truffle", image: "/images/mockup/Swareen/cndy mockup hert 4.webp" },
       { name: "Chocolate", image: "/images/mockup/Swareen/cndy mockup hert 5.webp" }
     ]
@@ -202,7 +202,7 @@ export default function ProductDetailClient() {
             </div>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Link href="/contact" className="btn btn-primary" style={{ padding: '1.2rem 3rem', borderRadius: '10px', gap: '12px', fontSize: '1rem' }}>
-                Request a Quote <ArrowRight size={20} />
+                Contact us<ArrowRight size={20} />
               </Link>
             </div>
         </div>
