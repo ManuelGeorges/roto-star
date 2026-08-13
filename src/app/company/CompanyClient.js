@@ -26,13 +26,13 @@ export default function CompanyClient() {
       icon: <Printer size={32} className="text-primary" />,
       title: "High-Performance Rotogravure Printing",
       desc: "Advanced rotogravure technology for flexible packaging that stands out with up to 10 colors.",
-      image: "/images/carousel/28.webp"
+      image: "/images/carousel/10 en.webp"
     },
     {
       icon: <Box size={32} className="text-primary" />,
       title: "Complete Packaging Solutions",
       desc: "From structural design to final production, we deliver end-to-end packaging solutions.",
-      image: "/images/carousel/25.webp"
+      image: "/images/carousel/28.webp"
     },
     {
       icon: <Layers size={32} className="text-primary" />,
