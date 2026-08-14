@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+export default function Navbar({ lang, dict }) {
   const navToggleRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,13 +25,21 @@ export default function Navbar() {
     }
   };
 
+  const getLanguagePath = (targetLang) => {
+    const segments = pathname.split("/");
+    segments[1] = targetLang;
+    return segments.join("/");
+  };
+
+  const isAr = lang === "ar";
+
   return (
     <nav className={scrolled ? "scrolled" : ""}>
       <div className="container nav-container">
-        <Link href="/" className="logo" onClick={closeMenu}>
+        <Link href={`/${lang}`} className="logo" onClick={closeMenu}>
           <Image
             src="/logo.png"
-            alt="Roto Star Logo - Flexible Packaging Leader"
+            alt="Roto Star Logo"
             width={40}
             height={40}
             style={{ objectFit: 'contain', height: 'auto' }}
@@ -37,7 +47,7 @@ export default function Navbar() {
           />
           <div className="logo-text">
             <div className="brand-name">Roto Star</div>
-            <div className="brand-tagline">PRINTING COMPANY</div>
+            <div className="brand-tagline">{isAr ? "شركة طباعة" : "PRINTING COMPANY"}</div>
           </div>
         </Link>
 
@@ -55,13 +65,24 @@ export default function Navbar() {
 
         <div className="nav-menu">
           <ul className="nav-links">
-            <li><Link href="/" onClick={closeMenu}>Home</Link></li>
-            <li><Link href="/company" onClick={closeMenu}>Company</Link></li>
-            <li><Link href="/process" onClick={closeMenu}>Our Process</Link></li>
-            <li><Link href="/products" onClick={closeMenu}>Products</Link></li>
+            <li><Link href={`/${lang}`} onClick={closeMenu}>{dict.home}</Link></li>
+            <li><Link href={`/${lang}/company`} onClick={closeMenu}>{dict.company}</Link></li>
+            <li><Link href={`/${lang}/process`} onClick={closeMenu}>{dict.process}</Link></li>
+            <li><Link href={`/${lang}/products`} onClick={closeMenu}>{dict.products}</Link></li>
           </ul>
+
           <div className="nav-actions">
-            <Link href="/contact" className="btn btn-primary btn-sm" onClick={closeMenu}>Contact us</Link>
+            <Link
+              href={getLanguagePath(isAr ? "en" : "ar")}
+              className="lang-switch"
+              onClick={closeMenu}
+            >
+              <Globe size={16} />
+              <span>{isAr ? "English" : "العربية"}</span>
+            </Link>
+            <Link href={`/${lang}/contact`} className="btn btn-primary btn-sm" onClick={closeMenu}>
+              {dict.contact}
+            </Link>
           </div>
         </div>
       </div>

@@ -2,14 +2,17 @@
 import { Lightbulb, PenTool, Printer, Clock, Cpu, Users, Leaf, ArrowRight, CheckCircle2, FlaskConical, Palette, Zap, Layers, BarChart3, Layout, Settings } from "lucide-react";
 import Link from "next/link";
 
-export default function ProcessClient() {
+export default function ProcessClient({ lang, dict }) {
+  const isAr = lang === "ar";
+
   return (
     <main style={{ background: '#fff' }}>
       <section className="bg-dark hero-section" style={{ position: 'relative', overflow: 'hidden' ,paddingTop:'100px'}}>
         <div style={{
           position: 'absolute',
           top: 0,
-          right: 0,
+          right: isAr ? 'auto' : 0,
+          left: isAr ? 0 : 'auto',
           width: '50%',
           height: '100%',
           background: 'radial-gradient(circle at 70% 30%, rgba(255, 189, 0, 0.08) 0%, transparent 70%)',
@@ -19,19 +22,23 @@ export default function ProcessClient() {
           <div className="grid-2 hero-grid" style={{ alignItems: 'center' }}>
             <div className="hero-text">
               <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--primary)', marginBottom: '1.5rem', fontWeight: '600' }}>
-                <Link href="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link>
+                <Link href={`/${lang}`} style={{ color: 'inherit', textDecoration: 'none' }}>{dict.hero.home}</Link>
                 <span style={{ color: '#444' }}>/</span>
-                <span style={{ color: '#fff' }}>Our Process</span>
+                <span style={{ color: '#fff' }}>{dict.hero.process}</span>
               </div>
-              <h3 className="text-primary animate-fade-up" style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)', marginBottom: '1rem', letterSpacing: '2px', fontWeight: '800' }}>HOW WE WORK</h3>
+              <h3 className="text-primary animate-fade-up" style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)', marginBottom: '1rem', letterSpacing: '2px', fontWeight: '800' }}>{dict.hero.subtitle}</h3>
               <h1 className="animate-fade-up delay-1 hero-title" style={{ lineHeight: '1.1', marginBottom: '2rem', fontWeight: '800' }}>
-                From Idea to <span className="text-primary">Masterpiece</span>.
+                {isAr ? (
+                   <>من الفكرة إلى <span className="text-primary">التحفة الفنية</span>.</>
+                ) : (
+                   <>From Idea to <span className="text-primary">Masterpiece</span>.</>
+                )}
               </h1>
               <p style={{ maxWidth: '540px', fontSize: 'clamp(1rem, 1.6vw, 1.15rem)', color: 'var(--gray-400)', marginBottom: '3rem', lineHeight: '1.7' }} className="animate-fade-up delay-2">
-                We've refined a seamless process that transforms your packaging concepts into high-performance industrial solutions through precision engineering and creative excellence.
+                {dict.hero.description}
               </p>
               <div className="animate-fade-up delay-3" style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
-                <Link href="/contact" className="btn btn-primary">Start Your Journey <ArrowRight size={18} /></Link>
+                <Link href={`/${lang}/contact`} className="btn btn-primary">{dict.hero.cta} <ArrowRight size={18} style={{ transform: isAr ? 'rotate(180deg)' : 'none' }} /></Link>
               </div>
             </div>
             <div className="animate-fade delay-3 hero-image-outer" style={{ position: 'relative' }}>
@@ -57,10 +64,14 @@ export default function ProcessClient() {
                  color: 'var(--black)',
                  textAlign: 'center',
                  boxShadow: '0 30px 60px rgba(255,189,0,0.3)',
-                 zIndex: 10
+                 zIndex: 10,
+                 [isAr ? 'left' : 'right']: 'clamp(-8px, -1vw, -20px)',
+                 [isAr ? 'right' : 'left']: 'auto'
                }}>
                  <div className="experience-badge-num" style={{ fontWeight: '900', lineHeight: '1' }}>28+</div>
-                 <div style={{ fontSize: 'clamp(0.6rem, 1.2vw, 0.7rem)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px' }}>Years of<br/>Precision</div>
+                 <div style={{ fontSize: 'clamp(0.6rem, 1.2vw, 0.7rem)', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    {isAr ? <>سنوات من<br/>الدقة</> : <>Years of<br/>Precision</>}
+                 </div>
                </div>
             </div>
           </div>
@@ -70,33 +81,18 @@ export default function ProcessClient() {
       <section className="section" style={{ background: '#fff' }}>
         <div className="container">
           <div className="text-center animate-fade-up section-intro">
-            <h2 className="section-title">A Simplified, Proven Flow</h2>
+            <h2 className="section-title">{dict.flow.title}</h2>
             <p style={{ color: 'var(--gray-600)', maxWidth: '650px', margin: '0 auto', fontSize: 'clamp(1rem, 1.6vw, 1.1rem)' }}>
-              We've optimized our workflow to ensure speed, quality, and complete transparency at every stage of production.
+              {dict.flow.desc}
             </p>
             <div style={{ width: '80px', height: '4px', background: 'var(--primary)', margin: '2.5rem auto' }}></div>
           </div>
 
           <div className="grid-3 steps-grid" style={{ gap: '3rem' }}>
             {[
-              {
-                icon: Lightbulb,
-                title: "01. Create",
-                desc: "We begin with a deep dive into your product requirements, brainstorming materials and structures that maximize protection and shelf appeal.",
-                color: "#FFF9E6"
-              },
-              {
-                icon: PenTool,
-                title: "02. Design",
-                desc: "Our creative studio develops high-fidelity 3D models and graphic designs, ensuring your brand story is told with clarity and impact.",
-                color: "#F4F4F4"
-              },
-              {
-                icon: Printer,
-                title: "03. Print",
-                desc: "Using advanced rotogravure technology, we bring the designs to life with unmatched color precision and consistent industrial quality.",
-                color: "#FFF9E6"
-              }
+              { icon: Lightbulb, step: dict.flow.steps[0] },
+              { icon: PenTool, step: dict.flow.steps[1] },
+              { icon: Printer, step: dict.flow.steps[2] }
             ].map((item, i) => (
               <div key={i} className={`animate-fade-up delay-${i+1} process-card`} style={{
                 border: '1px solid #f0f0f0',
@@ -116,8 +112,8 @@ export default function ProcessClient() {
                 }}>
                   <item.icon size={42} className="text-primary" strokeWidth={1.5} />
                 </div>
-                <h3 style={{ fontSize: 'clamp(1.3rem, 2vw, 1.6rem)', fontWeight: '800', marginBottom: '1.2rem' }}>{item.title}</h3>
-                <p style={{ color: 'var(--gray-600)', lineHeight: '1.8', fontSize: '0.95rem' }}>{item.desc}</p>
+                <h3 style={{ fontSize: 'clamp(1.3rem, 2vw, 1.6rem)', fontWeight: '800', marginBottom: '1.2rem' }}>{item.step.title}</h3>
+                <p style={{ color: 'var(--gray-600)', lineHeight: '1.8', fontSize: '0.95rem' }}>{item.step.desc}</p>
               </div>
             ))}
           </div>
@@ -127,10 +123,10 @@ export default function ProcessClient() {
       <section className="section bg-light" style={{ borderTop: '1px solid #eee' }}>
         <div className="container">
           <div className="animate-fade-up" style={{ marginBottom: '4rem' }}>
-            <h3 className="text-primary" style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)', marginBottom: '1rem', letterSpacing: '2px', fontWeight: '800' }}>WE DESIGN</h3>
-            <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>Professional Graphic Design Services</h2>
+            <h3 className="text-primary" style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)', marginBottom: '1rem', letterSpacing: '2px', fontWeight: '800' }}>{dict.design.subtitle}</h3>
+            <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>{dict.design.title}</h2>
             <p style={{ color: 'var(--gray-600)', fontSize: 'clamp(1rem, 1.6vw, 1.1rem)', maxWidth: '800px', lineHeight: '1.8' }}>
-              Roto Star's customers can utilize professional graphic design services, ensuring your packaging is ready for high-performance production.
+              {dict.design.desc}
             </p>
             <div style={{ width: '60px', height: '4px', background: 'var(--primary)', marginTop: '2.5rem' }}></div>
           </div>
@@ -139,10 +135,10 @@ export default function ProcessClient() {
             <div className="animate-fade-up delay-1">
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
                 <div style={{ color: 'var(--primary)' }}><Layout size={24} /></div>
-                <h4 style={{ fontSize: '1.3rem', fontWeight: '800' }}>Prepress Services</h4>
+                <h4 style={{ fontSize: '1.3rem', fontWeight: '800' }}>{dict.design.prepress.title}</h4>
               </div>
               <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {['Photography', 'Barcode creation', 'Digital file output', 'Electronic file transfer', 'Design consulting'].map(item => (
+                {dict.design.prepress.items.map(item => (
                   <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1rem', color: 'var(--gray-600)' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)', flexShrink: 0 }}></div>
                     {item}
@@ -153,10 +149,10 @@ export default function ProcessClient() {
             <div className="animate-fade-up delay-2">
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
                 <div style={{ color: 'var(--primary)' }}><Palette size={24} /></div>
-                <h4 style={{ fontSize: '1.3rem', fontWeight: '800' }}>Color Management</h4>
+                <h4 style={{ fontSize: '1.3rem', fontWeight: '800' }}>{dict.design.color.title}</h4>
               </div>
               <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {['Print quality analysis', 'Image management'].map(item => (
+                {dict.design.color.items.map(item => (
                   <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1rem', color: 'var(--gray-600)' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)', flexShrink: 0 }}></div>
                     {item}
@@ -167,10 +163,10 @@ export default function ProcessClient() {
             <div className="animate-fade-up delay-3">
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
                 <div style={{ color: 'var(--primary)' }}><Settings size={24} /></div>
-                <h4 style={{ fontSize: '1.3rem', fontWeight: '800' }}>Project Management</h4>
+                <h4 style={{ fontSize: '1.3rem', fontWeight: '800' }}>{dict.design.project.title}</h4>
               </div>
               <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {['Online approval system', 'Collaborative tools', 'Secure hosting environment'].map(item => (
+                {dict.design.project.items.map(item => (
                   <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1rem', color: 'var(--gray-600)' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)', flexShrink: 0 }}></div>
                     {item}
@@ -186,30 +182,29 @@ export default function ProcessClient() {
         <div className="container">
           <div className="grid-2 print-grid" style={{ alignItems: 'center' }}>
             <div className="animate-fade-up">
-              <h3 className="text-primary" style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)', marginBottom: '1rem', letterSpacing: '2px', fontWeight: '800' }}>WE PRINT</h3>
-              <h2 className="section-title" style={{ marginBottom: '2rem' }}>Advanced Rotogravure <br/>Printing Capabilities</h2>
+              <h3 className="text-primary" style={{ fontSize: 'clamp(0.75rem, 1.5vw, 0.9rem)', marginBottom: '1rem', letterSpacing: '2px', fontWeight: '800' }}>{dict.print.subtitle}</h3>
+              <h2 className="section-title" style={{ marginBottom: '2rem' }}>{dict.print.title}</h2>
               <div style={{ width: '60px', height: '4px', background: 'var(--primary)', marginBottom: '2.5rem' }}></div>
               <p style={{ color: 'var(--gray-600)', fontSize: 'clamp(1rem, 1.6vw, 1.1rem)', lineHeight: '1.8', marginBottom: '2rem' }}>
-                At Roto Star, we specialize in Rotogravure—globally recognized as the gold standard for high-performance industrial printing.
+                {dict.print.desc}
               </p>
               <div className="grid-2 features-grid" style={{ marginBottom: '3rem' }}>
-                {[
-                  { icon: Zap, title: "Precision Control", text: "Highest accuracy in color and micro-detail reproduction." },
-                  { icon: Layers, title: "Versatile Layers", text: "Expertise in complex multi-layer substrates." },
-                  { icon: BarChart3, title: "Volume Efficiency", text: "Optimal cost-performance for large-scale runs." },
-                  { icon: Leaf, title: "Low Waste", text: "Advanced technology ensuring near-zero industrial waste." }
-                ].map((feature, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '1rem' }}>
-                    <div style={{ color: 'var(--primary)', flexShrink: 0 }}><feature.icon size={24} /></div>
-                    <div>
-                      <h4 style={{ fontWeight: '700', fontSize: '1rem', marginBottom: '0.4rem' }}>{feature.title}</h4>
-                      <p style={{ color: 'var(--gray-500)', fontSize: '0.85rem', lineHeight: '1.5' }}>{feature.text}</p>
+                {dict.print.features.map((feature, i) => {
+                  const icons = [Zap, Layers, BarChart3, Leaf];
+                  const Icon = icons[i];
+                  return (
+                    <div key={i} style={{ display: 'flex', gap: '1rem' }}>
+                      <div style={{ color: 'var(--primary)', flexShrink: 0 }}><Icon size={24} /></div>
+                      <div>
+                        <h4 style={{ fontWeight: '700', fontSize: '1rem', marginBottom: '0.4rem' }}>{feature.title}</h4>
+                        <p style={{ color: 'var(--gray-500)', fontSize: '0.85rem', lineHeight: '1.5' }}>{feature.text}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
-            <div className="animate-fade delay-2">
+            <div className={`animate-fade delay-2 ${isAr ? 'order-first' : ''}`}>
               <div className="capabilities-gallery" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
                 <div style={{ gridColumn: 'span 2', borderRadius: '24px', overflow: 'hidden', height: 'clamp(220px, 32vw, 300px)', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
                   <img src="/images/carousel/13 en.webp" alt="Roto Star Printing Factory" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -231,25 +226,25 @@ export default function ProcessClient() {
           <div className="grid-2 lab-grid" style={{ alignItems: 'center' }}>
             <div className="hero-text animate-fade-up">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'var(--primary)', fontWeight: '800', fontSize: '0.8rem', letterSpacing: '2px', marginBottom: '1.5rem' }}>
-                <FlaskConical size={18} /> PROTOTYPING CENTER
+                <FlaskConical size={18} /> {dict.lab.subtitle}
               </div>
-              <h2 className="section-title" style={{ marginBottom: '2rem' }}>The Working Lab</h2>
+              <h2 className="section-title" style={{ marginBottom: '2rem' }}>{dict.lab.title}</h2>
               <p style={{ marginBottom: '2.5rem', fontSize: 'clamp(1rem, 1.6vw, 1.1rem)', color: 'var(--gray-600)', lineHeight: '1.8' }}>
-                Where concepts become reality. Our specialized lab is dedicated to creating high-fidelity prototypes.
+                {dict.lab.desc}
               </p>
               <div className="lab-checklist" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '3.5rem' }}>
-                {['Basic Sketches', '3D Digital Models', 'Physical Mockups'].map((item, i) => (
+                {dict.lab.points.map((item, i) => (
                   <div key={i} className="flex" style={{ alignItems: 'center', gap: '0.8rem', fontWeight: '700', fontSize: '0.9rem' }}>
                     <CheckCircle2 size={18} className="text-primary" style={{ flexShrink: 0 }} />
                     {item}
                   </div>
                 ))}
               </div>
-              <Link href="/products" className="btn btn-outline" style={{ borderColor: 'var(--black)', color: 'var(--black)' }}>
-                Explore Our Capabilities
+              <Link href={`/${lang}/products`} className="btn btn-outline" style={{ borderColor: 'var(--black)', color: 'var(--black)' }}>
+                {dict.lab.explore}
               </Link>
             </div>
-            <div className="animate-fade delay-2 lab-image-outer">
+            <div className={`animate-fade delay-2 lab-image-outer ${isAr ? 'order-first' : ''}`}>
                <div className="lab-image-wrap" style={{
                  borderRadius: '30px',
                  overflow: 'hidden',
@@ -274,7 +269,7 @@ export default function ProcessClient() {
         .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; }
         .process-card { padding: clamp(4rem, 8vw, 6rem) clamp(3rem, 7vw, 5rem); border-radius: 24px; }
         .icon-wrapper { width: clamp(76px, 10vw, 100px); height: clamp(76px, 10vw, 100px); }
-        .experience-badge { bottom: clamp(16px, 4vw, 40px); right: clamp(-8px, -1vw, -20px); padding: clamp(1rem, 2.5vw, 2rem); }
+        .experience-badge { bottom: clamp(16px, 4vw, 40px); padding: clamp(1rem, 2.5vw, 2rem); }
         .experience-badge-num { font-size: clamp(1.7rem, 4vw, 2.5rem); }
 
         @media (max-width: 1024px) {

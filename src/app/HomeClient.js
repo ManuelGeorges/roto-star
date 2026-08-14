@@ -3,10 +3,14 @@ import { Users, Globe, ShieldCheck, Clock, ArrowRight, ChevronLeft, ChevronRight
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
 
-export default function HomeClient() {
+export default function HomeClient({ lang = "en", dict }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const autoPlayRef = useRef();
+
+  if (!dict) return null; // Prevent crash if dict is not provided
+
+  const isAr = lang === "ar";
 
   const carouselImages = [
     "/images/carousel/1 en.webp", "/images/carousel/2 en.webp", "/images/carousel/3 en.webp", "/images/carousel/4 en.webp",
@@ -57,18 +61,18 @@ export default function HomeClient() {
           <div className="hero-content">
             <div className="hero-text">
               <div className="hero-subtitle">
-                <span className="subtitle-badge">ROTO STAR</span>
-                <span className="subtitle-text">Flexible Packaging Excellence</span>
+                <span className="subtitle-badge">{dict.hero.subtitle}</span>
+                <span className="subtitle-text">{dict.hero.tagline}</span>
               </div>
-              <h1>Revolutionizing Your Brand's First Impression.</h1>
+              <h1>{dict.hero.title}</h1>
               <p className="hero-description">
-                Elevate your product with high-performance packaging that merges cutting-edge protection with unmatched visual appeal. Precision-engineered for a global market.
+                {dict.hero.description}
               </p>
               <div className="hero-btns">
-                <Link href="/products" className="btn btn-primary btn-glow">
-                  Explore Products <ArrowRight size={18} />
+                <Link href={`/${lang}/products`} className="btn btn-primary btn-glow">
+                  {dict.hero.explore} <ArrowRight size={18} style={{ transform: isAr ? 'rotate(180deg)' : 'none' }} />
                 </Link>
-                <Link href="/contact" className="btn btn-outline">Contact Us</Link>
+                <Link href={`/${lang}/contact`} className="btn btn-outline">{dict.hero.contact}</Link>
               </div>
             </div>
 
@@ -128,7 +132,7 @@ export default function HomeClient() {
 
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <div className="text-center animate-fade-up" style={{ marginBottom: '4.5rem' }}>
-            <h2 className="section-title" style={{ marginBottom: '1.2rem', color: 'var(--black)' }}>Roto Star in a word...</h2>
+            <h2 className="section-title" style={{ marginBottom: '1.2rem', color: 'var(--black)' }}>{dict.about.title}</h2>
             <div style={{ width: '80px', height: '4px', background: 'var(--primary)', margin: '0 auto' }}></div>
           </div>
 
@@ -160,13 +164,13 @@ export default function HomeClient() {
                 maxWidth: '900px',
                 margin: '0 auto'
               }}>
-                "We help businesses to express their ideas effectively through our complete printing solutions"
+                "{dict.about.quote}"
               </h3>
             </div>
 
             <div className="grid-3" style={{
               gap: '2.5rem',
-              textAlign: 'left'
+              textAlign: isAr ? 'right' : 'left'
             }}>
               <div className="animate-fade-up delay-2" style={{
                 padding: '2.5rem',
@@ -177,7 +181,7 @@ export default function HomeClient() {
               }}>
                 <div style={{ color: 'var(--primary)', fontWeight: '900', fontSize: '1.2rem', marginBottom: '1rem' }}>1996</div>
                 <p style={{ color: 'var(--gray-600)', fontSize: '0.95rem', lineHeight: '1.8' }}>
-                  Established in the economic capital of Syria, Aleppo, under the name <strong>Aleppo Printing</strong>, specializing in flexographic and rotogravure technologies.
+                  {dict.about.years["1996"]}
                 </p>
               </div>
 
@@ -190,7 +194,7 @@ export default function HomeClient() {
               }}>
                 <div style={{ color: 'var(--primary)', fontWeight: '900', fontSize: '1.2rem', marginBottom: '1rem' }}>2013</div>
                 <p style={{ color: 'var(--gray-600)', fontSize: '0.95rem', lineHeight: '1.8' }}>
-                  Manufacturing activity transferred to Egypt (Borg El Arab, Alexandria), rebranding as <strong>Roto Star</strong> to serve a broader international market.
+                  {dict.about.years["2013"]}
                 </p>
               </div>
 
@@ -201,9 +205,9 @@ export default function HomeClient() {
                 border: '1px solid #f0f0f0',
                 transition: 'transform 0.3s ease'
               }}>
-                <div style={{ color: 'var(--primary)', fontWeight: '900', fontSize: '1.2rem', marginBottom: '1rem' }}>Today</div>
+                <div style={{ color: 'var(--primary)', fontWeight: '900', fontSize: '1.2rem', marginBottom: '1rem' }}>{isAr ? "اليوم" : "Today"}</div>
                 <p style={{ color: 'var(--gray-600)', fontSize: '0.95rem', lineHeight: '1.8' }}>
-                  Delivering high-performance Rotogravure solutions across all substrates (BOPP, PE, PET, Alu, Paper) in single and multi-layer structures.
+                  {dict.about.years["today"]}
                 </p>
               </div>
             </div>
@@ -224,17 +228,17 @@ export default function HomeClient() {
       <section className="section bg-white" style={{ padding: '8rem 0' }}>
         <div className="container">
           <div className="grid-2" style={{ alignItems: 'center', gap: '6rem' }}>
-            <div className="animate-fade delay-2">
+            <div className={`animate-fade delay-2 ${isAr ? 'order-last' : ''}`}>
                <div style={{
                  borderRadius: '30px',
                  overflow: 'hidden',
                  boxShadow: '0 40px 80px rgba(0,0,0,0.1)',
                  position: 'relative',
-                 transform: 'rotate(-2deg)'
+                 transform: isAr ? 'rotate(2deg)' : 'rotate(-2deg)'
                }}>
                  <img
                    src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2071&auto=format&fit=crop"
-                   alt="Creative Design Studio for Packaging"
+                   alt="Creative Design Studio"
                    style={{ width: '100%', height: '500px', objectFit: 'cover' }}
                  />
                  <div style={{ position: 'absolute', inset: 0, border: '15px solid rgba(255,255,255,0.1)', borderRadius: '30px', pointerEvents: 'none' }}></div>
@@ -242,15 +246,15 @@ export default function HomeClient() {
             </div>
             <div className="hero-text animate-fade-up">
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', color: 'var(--primary)', fontWeight: '800', fontSize: '0.8rem', letterSpacing: '2px', marginBottom: '1.5rem' }}>
-                <Palette size={18} /> CREATIVE SERVICES
+                <Palette size={18} /> {dict.creative.subtitle}
               </div>
-              <h2 style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '2rem', lineHeight: '1.1' }}>Precision Design</h2>
+              <h2 style={{ fontSize: '3rem', fontWeight: '800', marginBottom: '2rem', lineHeight: '1.1' }}>{dict.creative.title}</h2>
               <p style={{ marginBottom: '2.5rem', fontSize: '1.1rem', color: 'var(--gray-600)', lineHeight: '1.8' }}>
-                Our in-house design team specializes in technical packaging aesthetics. We don't just make it look good—we ensure it's manufacturable, sustainable, and optimized for rotogravure printing.
+                {dict.creative.description}
               </p>
 
               <div className="flex-column" style={{ gap: '1.2rem', marginBottom: '3.5rem' }}>
-                {['Structural Integrity Planning', 'Graphic & Branding Alignment', 'Eco-Friendly Material Selection', 'Consistency Control'].map((item, i) => (
+                {dict.creative.points.map((item, i) => (
                   <div key={i} className="flex" style={{ alignItems: 'center', gap: '1rem', fontWeight: '700' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }}></div>
                     {item}
@@ -258,8 +262,8 @@ export default function HomeClient() {
                 ))}
               </div>
 
-              <Link href="/products" className="btn btn-outline" style={{ borderColor: 'var(--black)', color: 'var(--black)' }}>
-                View Our Portfolio
+              <Link href={`/${lang}/products`} className="btn btn-outline" style={{ borderColor: 'var(--black)', color: 'var(--black)' }}>
+                {dict.creative.portfolio}
               </Link>
             </div>
           </div>
@@ -275,7 +279,7 @@ export default function HomeClient() {
               </div>
               <div className="stat-info">
                 <span className="stat-value">28+</span>
-                <span className="stat-label">Years of Mastery</span>
+                <span className="stat-label">{dict.stats.years}</span>
               </div>
             </div>
             <div className="stat-item-modern">
@@ -284,7 +288,7 @@ export default function HomeClient() {
               </div>
               <div className="stat-info">
                 <span className="stat-value">300+</span>
-                <span className="stat-label">Global Partners</span>
+                <span className="stat-label">{dict.stats.partners}</span>
               </div>
             </div>
             <div className="stat-item-modern">
@@ -293,7 +297,7 @@ export default function HomeClient() {
               </div>
               <div className="stat-info">
                 <span className="stat-value">50+</span>
-                <span className="stat-label">Export Destinations</span>
+                <span className="stat-label">{dict.stats.destinations}</span>
               </div>
             </div>
             <div className="stat-item-modern">
@@ -302,7 +306,7 @@ export default function HomeClient() {
               </div>
               <div className="stat-info">
                 <span className="stat-value">ISO</span>
-                <span className="stat-label">Certified Quality</span>
+                <span className="stat-label">{dict.stats.certified}</span>
               </div>
             </div>
           </div>
@@ -313,15 +317,15 @@ export default function HomeClient() {
         <div className="container">
           <div className="section-header-alt text-center" style={{ marginBottom: '4rem' }}>
             <div className="header-text animate-fade-up">
-              <h3 className="text-primary section-subtitle-small">Innovation Showcase</h3>
-              <h2 className="section-title">Superior Packaging for Every Sector</h2>
-              <p className="section-desc" style={{ margin: '0 auto' }}>From specialized barrier films for delicate products to robust industrial solutions, we redefine how your product reaches the consumer.</p>
+              <h3 className="text-primary section-subtitle-small">{dict.showcase.subtitle}</h3>
+              <h2 className="section-title">{dict.showcase.title}</h2>
+              <p className="section-desc" style={{ margin: '0 auto' }}>{dict.showcase.description}</p>
             </div>
           </div>
 
           <div className="text-center" style={{ marginTop: '4rem' }}>
-             <Link href="/products" className="btn btn-primary animate-fade-up">
-              View Product Catalog <ArrowRight size={18} />
+             <Link href={`/${lang}/products`} className="btn btn-primary animate-fade-up">
+              {dict.showcase.catalog} <ArrowRight size={18} style={{ transform: isAr ? 'rotate(180deg)' : 'none' }} />
             </Link>
           </div>
         </div>

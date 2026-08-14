@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import WhatsAppButton from "./WhatsAppButton";
+import { headers } from "next/headers";
+import { getDictionary } from "../get-dictionary";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -63,20 +65,25 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const headersList = await headers();
+  const lang = headersList.get("x-lang") || "en";
+  const isAr = lang === "ar";
+  const dict = await getDictionary(lang);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Roto Star",
     "url": "https://roto-star.com",
     "logo": "https://roto-star.com/logo.png",
-    "description": "Leader in flexible packaging and rotogravure printing solutions.",
+    "description": isAr ? "رائد في حلول التغليف المرن وطباعة الروتوجرافور." : "Leader in flexible packaging and rotogravure printing solutions.",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Second Industrial Zone - Block 1, Piece 3",
-      "addressLocality": "Borg El-Arab City",
-      "addressRegion": "Alexandria",
-      "addressCountry": "Egypt"
+      "streetAddress": isAr ? "المنطقة الصناعية الثانية - بلوك 1، قطعة 3" : "Second Industrial Zone - Block 1, Piece 3",
+      "addressLocality": isAr ? "مدينة برج العرب" : "Borg El-Arab City",
+      "addressRegion": isAr ? "الإسكندرية" : "Alexandria",
+      "addressCountry": isAr ? "مصر" : "Egypt"
     },
     "contactPoint": {
       "@type": "ContactPoint",
@@ -90,16 +97,16 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en" className={`${poppins.variable}`}>
+    <html lang={lang} dir={isAr ? "rtl" : "ltr"} className={`${poppins.variable}`}>
       <body className="antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <Navbar />
+        <Navbar lang={lang} dict={dict.navbar} />
         {children}
-        <WhatsAppButton />
-        <Footer />
+        <WhatsAppButton lang={lang} />
+        <Footer lang={lang} dict={dict.footer} />
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
 "use client";
 import { MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 
-export default function ContactClient() {
+export default function ContactClient({ lang, dict }) {
+  const isAr = lang === "ar";
   const mapAddress = "Second Industrial Zone - Block 1, Piece 3, Borg El-Arab City, Alexandria, Egypt";
   const mapQuery = encodeURIComponent(mapAddress);
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
@@ -11,12 +12,16 @@ export default function ContactClient() {
     <main style={{ background: '#fff' }}>
       <section className="hero" style={{ padding: '12rem 0 8rem' }}>
         <div className="container text-center">
-          <h3 className="hero-subtitle animate-fade">CONTACT US</h3>
+          <h3 className="hero-subtitle animate-fade">{dict.hero.subtitle}</h3>
           <h1 className="animate-fade-up delay-1" style={{ fontSize: '4rem', fontWeight: '800', marginBottom: '1.5rem', letterSpacing: '-2px' }}>
-            Let's Start a <span className="text-primary">Conversation</span>
+            {isAr ? (
+              <>لنبدأ <span className="text-primary">محادثة</span></>
+            ) : (
+              <>Let's Start a <span className="text-primary">Conversation</span></>
+            )}
           </h1>
           <p className="hero-description animate-fade-up delay-2" style={{ margin: '0 auto', maxWidth: '600px' }}>
-            Have a project in mind or need a custom packaging solution? Reach out to our experts and discover how Roto Star can elevate your brand.
+            {dict.hero.description}
           </p>
         </div>
       </section>
@@ -28,10 +33,13 @@ export default function ContactClient() {
               <div className="stat-icon-bg" style={{ margin: '0 auto 1.8rem', width: '64px', height: '64px', background: 'rgba(255,189,0,0.1)' }}>
                 <MapPin size={28} className="text-primary" />
               </div>
-              <h4 style={{ marginBottom: '1.2rem', fontSize: '1.2rem' }}>Our Location</h4>
+              <h4 style={{ marginBottom: '1.2rem', fontSize: '1.2rem' }}>{dict.cards.location}</h4>
               <p style={{ fontSize: '0.95rem', color: '#666', lineHeight: '1.6' }}>
-                Second Industrial Zone - Block 1, Piece 3,<br />
-                Borg El-Arab City, Alexandria, Egypt
+                {isAr ? (
+                  <>المنطقة الصناعية الثانية - بلوك 1، قطعة 3،<br />مدينة برج العرب، الإسكندرية، مصر</>
+                ) : (
+                  <>Second Industrial Zone - Block 1, Piece 3,<br />Borg El-Arab City, Alexandria, Egypt</>
+                )}
               </p>
             </div>
 
@@ -39,8 +47,8 @@ export default function ContactClient() {
               <div className="stat-icon-bg" style={{ margin: '0 auto 1.8rem', width: '64px', height: '64px', background: 'rgba(255,189,0,0.1)' }}>
                 <Phone size={28} className="text-primary" />
               </div>
-              <h4 style={{ marginBottom: '1.2rem', fontSize: '1.2rem' }}>Call Us</h4>
-              <p style={{ fontSize: '0.95rem', color: '#666', lineHeight: '1.6' }}>
+              <h4 style={{ marginBottom: '1.2rem', fontSize: '1.2rem' }}>{dict.cards.callUs}</h4>
+              <p style={{ fontSize: '0.95rem', color: '#666', lineHeight: '1.6' }} dir="ltr">
                 +20 (3) 46 26 243<br />
                 +20 (3) 46 26 344
               </p>
@@ -52,11 +60,17 @@ export default function ContactClient() {
       <section className="section bg-light" style={{ padding: '8rem 0' }}>
         <div className="container">
           <div className="grid-2" style={{ alignItems: 'center', gap: '5rem' }}>
-            <div className="animate-fade-up">
+            <div className={`animate-fade-up ${isAr ? 'order-last' : ''}`}>
               <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontWeight: '800', marginBottom: '1.5rem', fontSize: '2.5rem', lineHeight: '1.2' }}>Global Reach, <br /><span className="text-primary">Local Support</span></h2>
+                <h2 style={{ fontWeight: '800', marginBottom: '1.5rem', fontSize: '2.5rem', lineHeight: '1.2' }}>
+                  {isAr ? (
+                    <>انتشار عالمي، <br /><span className="text-primary">دعم محلي</span></>
+                  ) : (
+                    <>Global Reach, <br /><span className="text-primary">Local Support</span></>
+                  )}
+                </h2>
                 <p style={{ color: '#666', marginBottom: '2.5rem', lineHeight: '1.9', fontSize: '1.1rem' }}>
-                  Operating from our state-of-the-art facility in Borg El-Arab, Alexandria, we provide high-performance rotogravure packaging solutions to clients across the Middle East and beyond.
+                  {dict.support.desc}
                 </p>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -65,8 +79,8 @@ export default function ContactClient() {
                        <Clock size={24} className="text-primary" />
                     </div>
                     <div>
-                      <h5 style={{ fontWeight: '800', fontSize: '1.1rem', marginBottom: '0.2rem' }}>Business Hours</h5>
-                      <p style={{ fontSize: '0.95rem', color: '#888' }}>Sunday - Thursday: 8:00 AM - 5:00 PM</p>
+                      <h5 style={{ fontWeight: '800', fontSize: '1.1rem', marginBottom: '0.2rem' }}>{dict.support.hours}</h5>
+                      <p style={{ fontSize: '0.95rem', color: '#888' }}>{dict.support.days}</p>
                     </div>
                   </div>
                 </div>
@@ -88,7 +102,7 @@ export default function ContactClient() {
               <div style={{
                 position: 'absolute',
                 bottom: '20px',
-                right: '20px',
+                [isAr ? 'left' : 'right']: '20px',
                 zIndex: 10
               }}>
                 <a
@@ -107,7 +121,7 @@ export default function ContactClient() {
                     border: 'none'
                   }}
                 >
-                  <ExternalLink size={16} /> Open in Google Maps
+                  <ExternalLink size={16} /> {dict.support.map}
                 </a>
               </div>
             </div>

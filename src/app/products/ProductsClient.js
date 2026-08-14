@@ -3,49 +3,52 @@ import { Search, ArrowRight, LayoutGrid, Info, Shield, HelpCircle } from "lucide
 import Link from "next/link";
 import { useState } from "react";
 
-export default function ProductsClient() {
+export default function ProductsClient({ lang, dict }) {
+  if (!dict) return null;
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All Categories");
+  const [activeCategory, setActiveCategory] = useState(dict.filter.all);
+  const isAr = lang === "ar";
 
   const categories = [
-    "All Categories", "BOPP", "PET + AL + PE or CPP", "PET + PE Milky or Trans.", "Twist Wrapping Material", "BOPP Pearlized", "BOPP + CPP"
+    dict.filter.all, "BOPP", "PET + AL + PE or CPP", "PET + PE Milky or Trans.", "Twist Wrapping Material", "BOPP Pearlized", "BOPP + CPP"
   ];
 
   const products = [
     {
       title: "BOPP",
       slug: "bopp",
-      desc: "High clarity, excellent printability and moisture resistance for chips, snacks and more.",
+      desc: isAr ? "وضوح عالٍ، قدرة ممتازة على الطباعة ومقاومة الرطوبة للبطاطس والوجبات الخفيفة وأكثر." : "High clarity, excellent printability and moisture resistance for chips, snacks and more.",
       image: "/images/mockup/ChocoSyria/Serial Wafer Mockup  chocolate.webp"
     },
     {
       title: "PET + AL + PE or CPP",
       slug: "pet-al-pe-or-cpp",
-      desc: "Advanced barrier protection for extended shelf life and product freshness.",
+      desc: isAr ? "حماية حاجزة متقدمة لإطالة عمر الصلاحية ونضارة المنتج." : "Advanced barrier protection for extended shelf life and product freshness.",
       image: "/images/mockup/Fakakes/Vacakis 100g mockup 2.webp"
     },
     {
       title: "PET + PE Milky or Trans.",
       slug: "pet-pe-milky-or-trans",
-      desc: "Versatile packaging with high durability and excellent seal performance.",
+      desc: isAr ? "تغليف متعدد الاستخدامات بمتانة عالية وأداء ختم ممتاز." : "Versatile packaging with high durability and excellent seal performance.",
       image: "/images/mockup/Saida/Saida 3.webp"
     },
     {
       title: "Twist Wrapping Material",
       slug: "twist-wrapping-material",
-      desc: "Premium twist films for candies and confectionery with superior twist retention.",
+      desc: isAr ? "أفلام تويست متميزة للحلويات والسكريات مع احتفاظ فائق بالالتواء." : "Premium twist films for candies and confectionery with superior twist retention.",
       image: "/images/mockup/ChocoSyria/Nay mockup nero.webp"
     },
     {
       title: "BOPP Pearlized",
       slug: "bopp-pearlized",
-      desc: "Elegant pearlized finish for premium look and enhanced shelf appeal.",
+      desc: isAr ? "لمسة لؤلؤية أنيقة لمظهر متميز وجاذبية محسنة على الرف." : "Elegant pearlized finish for premium look and enhanced shelf appeal.",
       image: "/images/mockup/Mini Top/Mini top mockup.webp"
     },
     {
       title: "BOPP + CPP",
       slug: "bopp-cpp",
-      desc: "Strong, heat-sealable solutions ideal for wide range of food applications.",
+      desc: isAr ? "حلول قوية قابلة للختم بالحرارة مثالية لمجموعة واسعة من تطبيقات الأغذية." : "Strong, heat-sealable solutions ideal for wide range of food applications.",
       image: "/images/mockup/Elegance/Elegance mockup.webp"
     }
   ];
@@ -53,7 +56,7 @@ export default function ProductsClient() {
   const filteredProducts = products.filter(p => {
     const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          p.desc.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = activeCategory === "All Categories" || p.title === activeCategory;
+    const matchesCategory = activeCategory === dict.filter.all || p.title === activeCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -65,11 +68,11 @@ export default function ProductsClient() {
         textAlign: 'center'
       }}>
         <div className="container">
-          <h1 className="hero-title-responsive animate-fade-up" style={{ fontWeight: '800', marginBottom: '1rem' }}>Our Products</h1>
+          <h1 className="hero-title-responsive animate-fade-up" style={{ fontWeight: '800', marginBottom: '1rem' }}>{dict.hero.title}</h1>
           <div className="animate-fade delay-1" style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', fontSize: '0.9rem', opacity: 0.8 }}>
-            <Link href="/" style={{ color: '#fff', textDecoration: 'none' }}>Home</Link>
+            <Link href={`/${lang}`} style={{ color: '#fff', textDecoration: 'none' }}>{dict.hero.home}</Link>
             <span>/</span>
-            <span style={{ color: 'var(--primary)', fontWeight: '600' }}>Products</span>
+            <span style={{ color: 'var(--primary)', fontWeight: '600' }}>{dict.hero.products}</span>
           </div>
         </div>
       </section>
@@ -104,13 +107,13 @@ export default function ProductsClient() {
 
             <div className="animate-fade-up delay-1" style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', width: '100%', justifyContent: 'space-between' }}>
               <div style={{ position: 'relative', flex: '1', minWidth: '250px' }}>
-                <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#888' }} />
+                <Search size={18} style={{ position: 'absolute', [isAr ? 'right' : 'left']: '12px', top: '50%', transform: 'translateY(-50%)', color: '#888' }} />
                 <input
                   type="text"
-                  placeholder="Search products..."
+                  placeholder={dict.filter.search}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{ padding: '0.75rem 1rem 0.75rem 2.8rem', borderRadius: '8px', border: '1px solid #eee', outline: 'none', width: '100%', fontSize: '0.9rem' }}
+                  style={{ padding: `0.75rem ${isAr ? '2.8rem' : '1rem'} 0.75rem ${isAr ? '1rem' : '2.8rem'}`, borderRadius: '8px', border: '1px solid #eee', outline: 'none', width: '100%', fontSize: '0.9rem' }}
                 />
               </div>
             </div>
@@ -122,7 +125,7 @@ export default function ProductsClient() {
         <div className="container">
           <div className="grid-3">
             {filteredProducts.map((product, i) => (
-              <Link href={`/products/detail?type=${product.slug}`} key={i} className={`animate-fade-up delay-${(i % 3) + 1}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link href={`/${lang}/products/detail?type=${product.slug}`} key={i} className={`animate-fade-up delay-${(i % 3) + 1}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="product-card-horizontal">
                   <div className="product-img-wrapper" style={{
                     width: '130px',
@@ -144,7 +147,7 @@ export default function ProductsClient() {
                       loading="lazy"
                     />
                   </div>
-                  <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1, textAlign: isAr ? 'right' : 'left' }}>
                     <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '0.8rem', color: '#111' }}>{product.title}</h3>
                     <p style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.6', marginBottom: '1.8rem' }}>{product.desc}</p>
                     <div className="arrow-icon-circle" style={{
@@ -158,7 +161,7 @@ export default function ProductsClient() {
                       boxShadow: '0 4px 10px rgba(255,189,0,0.3)',
                       transition: 'all 0.3s ease'
                     }}>
-                      <ArrowRight size={18} color="#000" strokeWidth={2.5} />
+                      <ArrowRight size={18} color="#000" strokeWidth={2.5} style={{ transform: isAr ? 'rotate(180deg)' : 'none' }} />
                     </div>
                   </div>
                 </div>
@@ -172,12 +175,12 @@ export default function ProductsClient() {
                 <HelpCircle className="text-primary pulse-soft" size={32} />
               </div>
               <div className="banner-text">
-                <h4 style={{ fontWeight: '800', fontSize: '1.4rem', marginBottom: '0.4rem' }}>Looking for a custom solution?</h4>
-                <p style={{ color: '#666', fontSize: '1rem' }}>Our team can help you choose the right material for your product.</p>
+                <h4 style={{ fontWeight: '800', fontSize: '1.4rem', marginBottom: '0.4rem' }}>{dict.custom.title}</h4>
+                <p style={{ color: '#666', fontSize: '1rem' }}>{dict.custom.desc}</p>
               </div>
             </div>
-            <Link href="/contact" className="btn btn-primary" style={{ padding: '1.2rem 3rem', borderRadius: '10px', gap: '12px', fontSize: '1rem' }}>
-              Request a Quote <ArrowRight size={20} />
+            <Link href={`/${lang}/contact`} className="btn btn-primary" style={{ padding: '1.2rem 3rem', borderRadius: '10px', gap: '12px', fontSize: '1rem' }}>
+              {dict.custom.cta} <ArrowRight size={20} style={{ transform: isAr ? 'rotate(180deg)' : 'none' }} />
             </Link>
           </div>
         </div>
@@ -186,22 +189,16 @@ export default function ProductsClient() {
       <section style={{ background: '#111', color: '#fff', padding: '4rem 0' }}>
         <div className="container">
           <div className="grid-4">
-            <div className="animate-fade-up delay-1" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-              <div style={{ color: 'var(--primary)' }}><LayoutGrid size={28} /></div>
-              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Comprehensive Product Range</div>
-            </div>
-            <div className="animate-fade-up delay-2" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-              <div style={{ color: 'var(--primary)' }}><Search size={28} /></div>
-              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Easy Search & Filtering</div>
-            </div>
-            <div className="animate-fade-up delay-3" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-              <div style={{ color: 'var(--primary)' }}><Info size={28} /></div>
-              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Premium Visual Presentation</div>
-            </div>
-            <div className="animate-fade-up delay-1" style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
-              <div style={{ color: 'var(--primary)' }}><Shield size={28} /></div>
-              <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>Material Clarity & Performance</div>
-            </div>
+            {dict.features.map((feature, i) => {
+              const icons = [LayoutGrid, Search, Info, Shield];
+              const Icon = icons[i];
+              return (
+                <div key={i} className={`animate-fade-up delay-${(i % 3) + 1}`} style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+                  <div style={{ color: 'var(--primary)' }}><Icon size={28} /></div>
+                  <div style={{ fontSize: '0.8rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px', color: '#eee' }}>{feature}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

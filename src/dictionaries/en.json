@@ -1,0 +1,199 @@
+{
+  "navbar": {
+    "home": "Home",
+    "company": "Company",
+    "process": "Our Process",
+    "products": "Products",
+    "contact": "Contact us"
+  },
+  "footer": {
+    "description": "Delivering world-class flexible packaging solutions with precision and passion since 1996.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "rights": "Copyright © 2007 - 2026 Roto Star. All rights reserved.",
+    "links": {
+      "home": "Home",
+      "company": "Company",
+      "process": "Our Process",
+      "products": "Products",
+      "contact": "Contact Us"
+    }
+  },
+  "home": {
+    "hero": {
+      "subtitle": "ROTO STAR",
+      "tagline": "Flexible Packaging Excellence",
+      "title": "Revolutionizing Your Brand's First Impression.",
+      "description": "Elevate your product with high-performance packaging that merges cutting-edge protection with unmatched visual appeal. Precision-engineered for a global market.",
+      "explore": "Explore Products",
+      "contact": "Contact Us"
+    },
+    "about": {
+      "title": "Roto Star in a word...",
+      "quote": "We help businesses to express their ideas effectively through our complete printing solutions",
+      "years": {
+        "1996": "Established in the economic capital of Syria, Aleppo, under the name Aleppo Printing, specializing in flexographic and rotogravure technologies.",
+        "2013": "Manufacturing activity transferred to Egypt (Borg El Arab, Alexandria), rebranding as Roto Star to serve a broader international market.",
+        "today": "Delivering high-performance Rotogravure solutions across all substrates (BOPP, PE, PET, Alu, Paper) in single and multi-layer structures."
+      }
+    },
+    "creative": {
+      "subtitle": "CREATIVE SERVICES",
+      "title": "Precision Design",
+      "description": "Our in-house design team specializes in technical packaging aesthetics. We don't just make it look good—we ensure it's manufacturable, sustainable, and optimized for rotogravure printing.",
+      "points": ["Structural Integrity Planning", "Graphic & Branding Alignment", "Eco-Friendly Material Selection", "Consistency Control"],
+      "portfolio": "View Our Portfolio"
+    },
+    "stats": {
+      "years": "Years of Mastery",
+      "partners": "Global Partners",
+      "destinations": "Export Destinations",
+      "certified": "Certified Quality"
+    },
+    "showcase": {
+      "subtitle": "Innovation Showcase",
+      "title": "Superior Packaging for Every Sector",
+      "description": "From specialized barrier films for delicate products to robust industrial solutions, we redefine how your product reaches the consumer.",
+      "catalog": "View Product Catalog"
+    }
+  },
+  "company": {
+    "hero": {
+      "subtitle": "ABOUT ROTO STAR",
+      "title": "Built on Trust. Driven by Innovation.",
+      "description": "From Aleppo to Alexandria, our journey is rooted in quality, innovation, and a passion for packaging excellence that spans over three decades.",
+      "workWithUs": "Work With Us"
+    },
+    "stats": {
+      "years": "Years Experience",
+      "clients": "Clients Globally",
+      "markets": "Markets Served",
+      "quality": "Quality Commitment"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "desc": "To provide innovative and high-quality flexible packaging solutions that help our clients' products stand out while ensuring maximum protection and sustainability."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "desc": "To be the leading global partner in the rotogravure packaging industry, recognized for our excellence in quality, innovation, and commitment to environmental responsibility."
+    },
+    "rooted": {
+      "title": "Rooted in Quality",
+      "desc": "At Roto Star, we believe that packaging is more than just a container—it's the first touchpoint between your brand and your customer. Our commitment to excellence began in Aleppo and continues today in Alexandria, serving brands that demand the best.",
+      "points": ["Precision Printing", "Bespoke Structures", "Global Standards", "Fast Turnaround"],
+      "explore": "Explore Our Solutions"
+    },
+    "journey": {
+      "title": "Our Journey"
+    },
+    "capabilities": {
+      "title": "Our Capabilities",
+      "desc": "We leverage cutting-edge technology and decades of expertise to deliver packaging that performs under pressure and stands out on the shelf."
+    }
+  },
+  "process": {
+    "hero": {
+      "home": "Home",
+      "process": "Our Process",
+      "subtitle": "HOW WE WORK",
+      "title": "From Idea to Masterpiece.",
+      "description": "We've refined a seamless process that transforms your packaging concepts into high-performance industrial solutions through precision engineering and creative excellence.",
+      "cta": "Start Your Journey"
+    },
+    "flow": {
+      "title": "A Simplified, Proven Flow",
+      "desc": "We've optimized our workflow to ensure speed, quality, and complete transparency at every stage of production.",
+      "steps": [
+        {
+          "title": "01. Create",
+          "desc": "We begin with a deep dive into your product requirements, brainstorming materials and structures that maximize protection and shelf appeal."
+        },
+        {
+          "title": "02. Design",
+          "desc": "Our creative studio develops high-fidelity 3D models and graphic designs, ensuring your brand story is told with clarity and impact."
+        },
+        {
+          "title": "03. Print",
+          "desc": "Using advanced rotogravure technology, we bring the designs to life with unmatched color precision and consistent industrial quality."
+        }
+      ]
+    },
+    "design": {
+      "subtitle": "WE DESIGN",
+      "title": "Professional Graphic Design Services",
+      "desc": "Roto Star's customers can utilize professional graphic design services, ensuring your packaging is ready for high-performance production.",
+      "prepress": {
+        "title": "Prepress Services",
+        "items": ["Photography", "Barcode creation", "Digital file output", "Electronic file transfer", "Design consulting"]
+      },
+      "color": {
+        "title": "Color Management",
+        "items": ["Print quality analysis", "Image management"]
+      },
+      "project": {
+        "title": "Project Management",
+        "items": ["Online approval system", "Collaborative tools", "Secure hosting environment"]
+      }
+    },
+    "print": {
+      "subtitle": "WE PRINT",
+      "title": "Advanced Rotogravure Printing Capabilities",
+      "desc": "At Roto Star, we specialize in Rotogravure—globally recognized as the gold standard for high-performance industrial printing.",
+      "features": [
+        { "title": "Precision Control", "text": "Highest accuracy in color and micro-detail reproduction." },
+        { "title": "Versatile Layers", "text": "Expertise in complex multi-layer substrates." },
+        { "title": "Volume Efficiency", "text": "Optimal cost-performance for large-scale runs." },
+        { "title": "Low Waste", "text": "Advanced technology ensuring near-zero industrial waste." }
+      ]
+    },
+    "lab": {
+      "subtitle": "PROTOTYPING CENTER",
+      "title": "The Working Lab",
+      "desc": "Where concepts become reality. Our specialized lab is dedicated to creating high-fidelity prototypes.",
+      "points": ["Basic Sketches", "3D Digital Models", "Physical Mockups"],
+      "explore": "Explore Our Capabilities"
+    }
+  },
+  "products": {
+    "hero": {
+      "title": "Our Products",
+      "home": "Home",
+      "products": "Products"
+    },
+    "filter": {
+      "all": "All Categories",
+      "search": "Search products..."
+    },
+    "custom": {
+      "title": "Looking for a custom solution?",
+      "desc": "Our team can help you choose the right material for your product.",
+      "cta": "Request a Quote"
+    },
+    "features": [
+      "Comprehensive Product Range",
+      "Easy Search & Filtering",
+      "Premium Visual Presentation",
+      "Material Clarity & Performance"
+    ]
+  },
+  "contact": {
+    "hero": {
+      "subtitle": "CONTACT US",
+      "title": "Let's Start a Conversation",
+      "description": "Have a project in mind or need a custom packaging solution? Reach out to our experts and discover how Roto Star can elevate your brand."
+    },
+    "cards": {
+      "location": "Our Location",
+      "address": "Second Industrial Zone - Block 1, Piece 3, Borg El-Arab City, Alexandria, Egypt",
+      "callUs": "Call Us"
+    },
+    "support": {
+      "title": "Global Reach, Local Support",
+      "desc": "Operating from our state-of-the-art facility in Borg El-Arab, Alexandria, we provide high-performance rotogravure packaging solutions to clients across the Middle East and beyond.",
+      "hours": "Business Hours",
+      "days": "Saturday - Thursday: 8:00 AM - 4:00 PM",
+      "map": "Open in Google Maps"
+    }
+  }
+}
