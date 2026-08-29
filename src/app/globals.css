@@ -1233,3 +1233,55 @@ nav.scrolled {
     height: 50px;
   }
 }
+.video-glow-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: 30px;
+  padding: 6px;
+  background: #000;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+  z-index: 2;
+  overflow: hidden;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #000;
+  isolation: isolate;
+}
+
+.video-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.video-glow-effect {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(255, 189, 0, 0.15) 0%, transparent 70%);
+  filter: blur(30px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .video-glow-container {
+    padding: 6px;
+    border-radius: 18px;
+  }
+  .video-frame {
+    border-radius: 14px;
+  }
+}
