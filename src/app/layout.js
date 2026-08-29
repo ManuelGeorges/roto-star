@@ -19,10 +19,17 @@ export const metadata = {
     template: "%s | Roto Star",
   },
   description: "Roto Star is a global leader in high-performance flexible packaging and rotogravure printing. Providing innovative solutions for food, beverages, and industrial products since 1996.",
-  keywords: ["flexible packaging", "rotogravure printing", "packaging company Egypt", "food packaging", "custom printing", "BOPP packaging", "laminated films"],
+  keywords: ["flexible packaging Egypt", "rotogravure printing", "food packaging manufacturer", "BOPP film suppliers", "laminated packaging films", "Roto Star packaging"],
   authors: [{ name: "Roto Star" }],
   creator: "Roto Star",
   publisher: "Roto Star",
+  alternates: {
+    canonical: "https://roto-star.com",
+    languages: {
+      'en-US': 'https://roto-star.com/en',
+      'ar-EG': 'https://roto-star.com/ar',
+    },
+  },
   openGraph: {
     title: "Roto Star | Flexible Packaging Excellence",
     description: "Revolutionizing Your Brand's First Impression with high-performance packaging engineered for a global market.",
@@ -31,9 +38,9 @@ export const metadata = {
     images: [
       {
         url: "/logo.png",
-        width: 800,
-        height: 600,
-        alt: "Roto Star - Printing Excellence",
+        width: 1200,
+        height: 630,
+        alt: "Roto Star - Flexible Packaging Excellence",
       },
     ],
     locale: "en_US",
@@ -60,9 +67,6 @@ export const metadata = {
     icon: "/logo.png",
     apple: "/logo.png",
   },
-  alternates: {
-    canonical: "https://roto-star.com",
-  },
 };
 
 export default async function RootLayout({ children }) {
@@ -73,22 +77,25 @@ export default async function RootLayout({ children }) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "ManufacturingBusiness",
     "name": "Roto Star",
     "url": "https://roto-star.com",
     "logo": "https://roto-star.com/logo.png",
-    "description": isAr ? "رائد في حلول التغليف المرن وطباعة الروتوجرافور." : "Leader in flexible packaging and rotogravure printing solutions.",
+    "image": "https://roto-star.com/logo.png",
+    "description": isAr ? "رائد في حلول التغليف المرن وطباعة الروتوجرافور منذ عام 1996." : "Leader in flexible packaging and rotogravure printing solutions since 1996.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": isAr ? "المنطقة الصناعية الثانية - بلوك 1، قطعة 3" : "Second Industrial Zone - Block 1, Piece 3",
       "addressLocality": isAr ? "مدينة برج العرب" : "Borg El-Arab City",
       "addressRegion": isAr ? "الإسكندرية" : "Alexandria",
-      "addressCountry": isAr ? "مصر" : "Egypt"
+      "addressCountry": "EG"
     },
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+20-3-4626243",
-      "contactType": "customer service"
+      "contactType": "customer service",
+      "areaServed": "Global",
+      "availableLanguage": ["Arabic", "English"]
     },
     "sameAs": [
       "https://www.facebook.com/share/1DEwYxzTCf/",
@@ -98,11 +105,13 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang={lang} dir={isAr ? "rtl" : "ltr"} className={`${poppins.variable}`}>
-      <body className="antialiased">
-        <script
+      <head>
+         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+      </head>
+      <body className="antialiased">
         <Navbar lang={lang} dict={dict.navbar} />
         {children}
         <WhatsAppButton lang={lang} />

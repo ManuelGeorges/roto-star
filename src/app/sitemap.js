@@ -1,36 +1,20 @@
 export default function sitemap() {
   const baseUrl = "https://roto-star.com";
+  const languages = ["en", "ar"];
+  const routes = ["", "/company", "/process", "/products", "/contact"];
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/company`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/process`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/products`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-  ];
+  const entries = [];
+
+  languages.forEach((lang) => {
+    routes.forEach((route) => {
+      entries.push({
+        url: `${baseUrl}/${lang}${route}`,
+        lastModified: new Date(),
+        changeFrequency: route === "/products" ? "weekly" : "monthly",
+        priority: route === "" ? 1.0 : 0.8,
+      });
+    });
+  });
+
+  return entries;
 }
