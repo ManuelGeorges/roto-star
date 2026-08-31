@@ -7,7 +7,6 @@ function getLocale(request) {
   const negotiatorHeaders = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-  // @ts-ignore locales are readonly
   const locales = i18n.locales;
   let languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
@@ -15,7 +14,7 @@ function getLocale(request) {
   return locale;
 }
 
-export function middleware(request) {
+export function proxy(request) {
   const pathname = request.nextUrl.pathname;
 
   // التحقق مما إذا كان المسار يفتقد للغة
@@ -23,11 +22,9 @@ export function middleware(request) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
-  // التوجيه إذا لم تكن اللغة موجودة في الرابط
+  // التوجيه التلقائي إذا كانت اللغة مفقودة
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
-
-    // توجيه المستخدم إلى اللغة المناسبة (مثلاً /en/...)
     return NextResponse.redirect(
       new URL(
         `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
@@ -36,15 +33,24 @@ export function middleware(request) {
     );
   }
 
-  // تمرير اللغة في الـ headers لسهولة الوصول إليها في الـ Layouts
-  const response = NextResponse.next();
-  const lang = pathname.split("/")[1];
-  response.headers.set("x-lang", lang);
+  // تمرير اللغة في الـ headers
+  const locale = i18n.locales.find(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
 
-  return response;
+  const requestHeaders = new Headers(request.headers);
+  if (locale) {
+    requestHeaders.set("x-lang", locale);
+  }
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 }
 
 export const config = {
-  // استثناء الملفات الثابتة والـ API من التوجيه
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|logo.png|.*\\.svg).*)"],
+  // استثناء الملفات الثابتة
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|logo.png|robots.txt|sitemap.xml|.*\\.svg).*)"],
 };
