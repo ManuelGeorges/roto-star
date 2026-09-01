@@ -2,8 +2,15 @@
 
 import Link from "next/link";
 import { ArrowRight, HelpCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function ProductDetailClient({ lang, dict, type }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const isAr = lang === "ar";
 
   const productData = {
@@ -41,7 +48,8 @@ export default function ProductDetailClient({ lang, dict, type }) {
         },
         {
           name: isAr ? "سناك" : "Snack",
-          image: "/images/mockup/El Raya/Free Orange Snack Bar Mockup.webp",
+          image:
+            "/images/mockup/El Raya/Free Orange Snack Bar Mockup.webp",
         },
         {
           name: isAr ? "بسكويت" : "Biscuit",
@@ -85,11 +93,13 @@ export default function ProductDetailClient({ lang, dict, type }) {
         },
         {
           name: isAr ? "مزيج القهوة" : "Coffee Mix",
-          image: "/images/mockup/Fakakes/Vacakis coffee 10g Mockup3.webp",
+          image:
+            "/images/mockup/Fakakes/Vacakis coffee 10g Mockup3.webp",
         },
         {
           name: isAr ? "قهوة مفرغة من الهواء" : "Vacuum Coffee",
-          image: "/images/mockup/Fakakes/Vacakis 100g mockup.webp",
+          image:
+            "/images/mockup/Fakakes/Vacakis 100g mockup.webp",
         },
         {
           name: isAr ? "مكسرات" : "Nuts",
@@ -433,19 +443,23 @@ export default function ProductDetailClient({ lang, dict, type }) {
               >
                 {isAr ? "اتصل بنا" : "Contact us"}
 
-                <ArrowRight
-                  size={14}
-                  style={{
-                    transform: isAr ? "rotate(180deg)" : "none",
-                  }}
-                />
+                {mounted && (
+                  <ArrowRight
+                    size={14}
+                    style={{
+                      transform: isAr ? "rotate(180deg)" : "none",
+                    }}
+                  />
+                )}
               </Link>
             </div>
           </section>
 
           <section
             className="animate-fade-up delay-2"
-            aria-label={isAr ? "تطبيقات المنتج" : "Product applications"}
+            aria-label={
+              isAr ? "تطبيقات المنتج" : "Product applications"
+            }
           >
             <div
               className="product-items-container"
@@ -534,10 +548,12 @@ export default function ProductDetailClient({ lang, dict, type }) {
                   flexShrink: 0,
                 }}
               >
-                <HelpCircle
-                  className="text-primary pulse-soft"
-                  size={32}
-                />
+                {mounted && (
+                  <HelpCircle
+                    className="text-primary pulse-soft"
+                    size={32}
+                  />
+                )}
               </div>
 
               <div className="banner-text">
@@ -587,12 +603,14 @@ export default function ProductDetailClient({ lang, dict, type }) {
               >
                 {isAr ? "اتصل بنا" : "Contact us"}
 
-                <ArrowRight
-                  size={20}
-                  style={{
-                    transform: isAr ? "rotate(180deg)" : "none",
-                  }}
-                />
+                {mounted && (
+                  <ArrowRight
+                    size={20}
+                    style={{
+                      transform: isAr ? "rotate(180deg)" : "none",
+                    }}
+                  />
+                )}
               </Link>
             </div>
           </div>
