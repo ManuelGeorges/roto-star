@@ -1,29 +1,75 @@
 import HomeClient from "../HomeClient";
 import { getDictionary } from "../../get-dictionary";
 
+const BASE_URL = "https://www.roto-star.com";
+
 export async function generateMetadata({ params }) {
   const { lang } = await params;
+
   const isAr = lang === "ar";
 
+  const title = isAr
+    ? "روتو ستار | الشركة الرائدة في التغليف المرن وطباعة الروتوجرافور"
+    : "Roto Star | Leading Flexible Packaging & Rotogravure Printing";
+
+  const description = isAr
+    ? "إحداث ثورة في الانطباع الأول لعلامتك التجارية من خلال التغليف عالي الأداء. متخصصون في طباعة الروتوجرافور للتغليف المرن للشاي والقهوة والوجبات الخفيفة ومنتجات التغذية."
+    : "Revolutionizing your brand's first impression with high-performance flexible packaging. Specialized in rotogravure printing for tea, coffee, snacks, and nutrition products.";
+
+  const url = `${BASE_URL}/${lang}`;
+
   return {
-    title: isAr
-      ? "روتو ستار | الشركة الرائدة في التغليف المرن وطباعة الروتوجرافور"
-      : "Roto Star | Leading Flexible Packaging & Rotogravure Printing",
-    description: isAr
-      ? "إحداث ثورة في الانطباع الأول لعلامتك التجارية من خلال التغليف عالي الأداء. متخصصون في طباعة الروتوجرافور للشاي والقهوة والوجبات الخفيفة ومنتجات التغذية."
-      : "Revolutionizing your brand's first impression with high-performance packaging. Specialized in rotogravure printing for tea, coffee, snacks, and nutrition products.",
+    metadataBase: new URL(BASE_URL),
+
+    title,
+
+    description,
+
+    alternates: {
+      canonical: url,
+
+      languages: {
+        en: `${BASE_URL}/en`,
+        ar: `${BASE_URL}/ar`,
+        "x-default": `${BASE_URL}/en`,
+      },
+    },
+
     openGraph: {
-      title: isAr ? "روتو ستار | التميز في التغليف المرن" : "Roto Star | Flexible Packaging Excellence",
-      description: isAr
-        ? "تغليف عالي الأداء يدمج الحماية المتطورة مع جاذبية بصرية لا تضاهى. مصمم بدقة لسوق عالمي."
-        : "High-performance packaging that merges cutting-edge protection with unmatched visual appeal. Precision-engineered for a global market.",
+      title,
+      description,
+      url,
+      siteName: "Roto Star",
+      type: "website",
+      locale: isAr ? "ar_EG" : "en_US",
+      alternateLocale: isAr
+        ? ["en_US"]
+        : ["ar_EG"],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
     },
   };
 }
 
 export default async function Home({ params }) {
   const { lang } = await params;
+
   const dict = await getDictionary(lang);
 
-  return <HomeClient lang={lang} dict={dict.home} />;
+  return (
+    <HomeClient
+      lang={lang}
+      dict={dict.home}
+    />
+  );
 }

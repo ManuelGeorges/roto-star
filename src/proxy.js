@@ -5,26 +5,35 @@ import Negotiator from "negotiator";
 
 function getLocale(request) {
   const negotiatorHeaders = {};
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
+
+  request.headers.forEach((value, key) => {
+    negotiatorHeaders[key] = value;
+  });
 
   const locales = i18n.locales;
-  let languages = new Negotiator({ headers: negotiatorHeaders }).languages();
+  const languages = new Negotiator({
+    headers: negotiatorHeaders,
+  }).languages();
 
-  const locale = matchLocale(languages, locales, i18n.defaultLocale);
-  return locale;
+  return matchLocale(
+    languages,
+    locales,
+    i18n.defaultLocale
+  );
 }
 
 export function proxy(request) {
   const pathname = request.nextUrl.pathname;
 
-  // التحقق مما إذا كان المسار يفتقد للغة
   const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+    (locale) =>
+      !pathname.startsWith(`/${locale}/`) &&
+      pathname !== `/${locale}`
   );
 
-  // التوجيه التلقائي إذا كانت اللغة مفقودة
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request);
+
     return NextResponse.redirect(
       new URL(
         `/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`,
@@ -33,12 +42,14 @@ export function proxy(request) {
     );
   }
 
-  // تمرير اللغة في الـ headers
   const locale = i18n.locales.find(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    (locale) =>
+      pathname.startsWith(`/${locale}/`) ||
+      pathname === `/${locale}`
   );
 
   const requestHeaders = new Headers(request.headers);
+
   if (locale) {
     requestHeaders.set("x-lang", locale);
   }
@@ -51,6 +62,7 @@ export function proxy(request) {
 }
 
 export const config = {
-  // استثناء الملفات الثابتة
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images|logo.png|robots.txt|sitemap.xml|.*\\.svg).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|images|logo.png|robots.txt|sitemap.xml|.*\\.svg).*)",
+  ],
 };

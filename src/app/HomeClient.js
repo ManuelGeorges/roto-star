@@ -15,94 +15,249 @@ import {
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
 
+const carouselImages = [
+  {
+    src: "/images/carousel/1 en.webp",
+    alt: "Roto Star creative design",
+  },
+  {
+    src: "/images/carousel/2 en.webp",
+    alt: "Roto Star creative work",
+  },
+  {
+    src: "/images/carousel/3 en.webp",
+    alt: "Roto Star design project",
+  },
+  {
+    src: "/images/carousel/4 en.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/5 en.webp",
+    alt: "Roto Star design work",
+  },
+  {
+    src: "/images/carousel/6 en.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/7 en.webp",
+    alt: "Roto Star design work",
+  },
+  {
+    src: "/images/carousel/8 en.webp",
+    alt: "Roto Star creative work",
+  },
+  {
+    src: "/images/carousel/9 en.webp",
+    alt: "Roto Star creative design",
+  },
+  {
+    src: "/images/carousel/10 en.webp",
+    alt: "Roto Star design project",
+  },
+  {
+    src: "/images/carousel/11 en.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/12 en.webp",
+    alt: "Roto Star creative design studio",
+  },
+  {
+    src: "/images/carousel/13 en.webp",
+    alt: "Roto Star design work",
+  },
+  {
+    src: "/images/carousel/14 en.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/15 en.webp",
+    alt: "Roto Star design project",
+  },
+  {
+    src: "/images/carousel/16 en.webp",
+    alt: "Roto Star creative work",
+  },
+  {
+    src: "/images/carousel/17 en.webp",
+    alt: "Roto Star design work",
+  },
+  {
+    src: "/images/carousel/18 en.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/19 en.webp",
+    alt: "Roto Star design work",
+  },
+  {
+    src: "/images/carousel/20 en.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/21.webp",
+    alt: "Roto Star creative work",
+  },
+  {
+    src: "/images/carousel/22.webp",
+    alt: "Roto Star design project",
+  },
+  {
+    src: "/images/carousel/23.webp",
+    alt: "Roto Star creative design",
+  },
+  {
+    src: "/images/carousel/24.webp",
+    alt: "Roto Star design work",
+  },
+  {
+    src: "/images/carousel/25.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/26.webp",
+    alt: "Roto Star design work",
+  },
+  {
+    src: "/images/carousel/27.webp",
+    alt: "Roto Star creative project",
+  },
+  {
+    src: "/images/carousel/28.webp",
+    alt: "Roto Star creative work",
+  },
+  {
+    src: "/images/carousel/29.webp",
+    alt: "Roto Star design project",
+  },
+  {
+    src: "/images/carousel/30.webp",
+    alt: "Roto Star creative design",
+  },
+  {
+    src: "/images/carousel/31.webp",
+    alt: "Roto Star creative work",
+  },
+];
+
 export default function HomeClient({ lang = "en", dict }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayRef = useRef();
-
-  if (!dict) return null;
+  const autoPlayRef = useRef(null);
+  const resumeTimeoutRef = useRef(null);
 
   const isAr = lang === "ar";
 
-  const carouselImages = [
-    "/images/carousel/1 en.webp",
-    "/images/carousel/2 en.webp",
-    "/images/carousel/3 en.webp",
-    "/images/carousel/4 en.webp",
-    "/images/carousel/5 en.webp",
-    "/images/carousel/6 en.webp",
-    "/images/carousel/7 en.webp",
-    "/images/carousel/8 en.webp",
-    "/images/carousel/9 en.webp",
-    "/images/carousel/10 en.webp",
-    "/images/carousel/11 en.webp",
-    "/images/carousel/12 en.webp",
-    "/images/carousel/13 en.webp",
-    "/images/carousel/14 en.webp",
-    "/images/carousel/15 en.webp",
-    "/images/carousel/16 en.webp",
-    "/images/carousel/17 en.webp",
-    "/images/carousel/18 en.webp",
-    "/images/carousel/19 en.webp",
-    "/images/carousel/20 en.webp",
-    "/images/carousel/21.webp",
-    "/images/carousel/22.webp",
-    "/images/carousel/23.webp",
-    "/images/carousel/24.webp",
-    "/images/carousel/25.webp",
-    "/images/carousel/26.webp",
-    "/images/carousel/27.webp",
-    "/images/carousel/28.webp",
-    "/images/carousel/29.webp",
-    "/images/carousel/30.webp",
-    "/images/carousel/31.webp",
-  ];
-
   const nextSlide = useCallback(() => {
-    setActiveSlide((prev) => (prev + 1) % carouselImages.length);
-  }, [carouselImages.length]);
-
-  const prevSlide = () => {
     setActiveSlide(
-      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
+      (prev) => (prev + 1) % carouselImages.length
     );
-  };
+  }, []);
 
-  const handleManualNav = (index) => {
+  const prevSlide = useCallback(() => {
+    setActiveSlide(
+      (prev) =>
+        (prev - 1 + carouselImages.length) %
+        carouselImages.length
+    );
+  }, []);
+
+  const handleManualNav = useCallback((index) => {
     setActiveSlide(index);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 15000);
-  };
 
-  useEffect(() => {
-    if (isAutoPlaying) {
-      autoPlayRef.current = setInterval(nextSlide, 2000);
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
     }
 
-    return () => clearInterval(autoPlayRef.current);
-  }, [isAutoPlaying, nextSlide]);
+    resumeTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 15000);
+  }, []);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    autoPlayRef.current = setInterval(() => {
+      setActiveSlide(
+        (prev) => (prev + 1) % carouselImages.length
+      );
+    }, 2000);
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [isAutoPlaying]);
+
+  useEffect(() => {
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+
+      if (resumeTimeoutRef.current) {
+        clearTimeout(resumeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  if (!dict) return null;
 
   const getSlideClass = (index) => {
     const total = carouselImages.length;
 
     if (index === activeSlide) return "active";
-    if (index === (activeSlide - 1 + total) % total) return "prev";
-    if (index === (activeSlide + 1) % total) return "next";
-    if (index === (activeSlide - 2 + total) % total) return "far-prev";
-    if (index === (activeSlide + 2) % total) return "far-next";
+
+    if (
+      index ===
+      (activeSlide - 1 + total) % total
+    ) {
+      return "prev";
+    }
+
+    if (
+      index ===
+      (activeSlide + 1) % total
+    ) {
+      return "next";
+    }
+
+    if (
+      index ===
+      (activeSlide - 2 + total) % total
+    ) {
+      return "far-prev";
+    }
+
+    if (
+      index ===
+      (activeSlide + 2) % total
+    ) {
+      return "far-next";
+    }
 
     return "hidden-slide";
   };
 
   return (
     <main>
+      {/* HERO */}
       <section className="hero">
         <div className="container">
           <div className="hero-content">
             <div className="hero-text">
               <div className="hero-subtitle">
-                <span className="subtitle-badge">{dict.hero.subtitle}</span>
-                <span className="subtitle-text">{dict.hero.tagline}</span>
+                <span className="subtitle-badge">
+                  {dict.hero.subtitle}
+                </span>
+
+                <span className="subtitle-text">
+                  {dict.hero.tagline}
+                </span>
               </div>
 
               <h1>{dict.hero.title}</h1>
@@ -117,10 +272,14 @@ export default function HomeClient({ lang = "en", dict }) {
                   className="btn btn-primary btn-glow"
                 >
                   {dict.hero.explore}
+
                   <ArrowRight
                     size={18}
+                    aria-hidden="true"
                     style={{
-                      transform: isAr ? "rotate(180deg)" : "none",
+                      transform: isAr
+                        ? "rotate(180deg)"
+                        : "none",
                     }}
                   />
                 </Link>
@@ -134,57 +293,138 @@ export default function HomeClient({ lang = "en", dict }) {
               </div>
             </div>
 
+            {/* HERO CAROUSEL */}
             <div className="hero-visual">
               <div className="gallery-carousel-wrapper">
-                <div className="carousel-glow-sphere"></div>
+                <div
+                  className="carousel-glow-sphere"
+                  aria-hidden="true"
+                />
 
                 <div
                   className="modern-gallery-carousel"
-                  onMouseEnter={() => setIsAutoPlaying(false)}
-                  onMouseLeave={() => setIsAutoPlaying(true)}
+                  role="region"
+                  aria-roledescription="carousel"
+                  aria-label={
+                    isAr
+                      ? "معرض الصور"
+                      : "Roto Star image gallery"
+                  }
+                  onMouseEnter={() =>
+                    setIsAutoPlaying(false)
+                  }
+                  onMouseLeave={() =>
+                    setIsAutoPlaying(true)
+                  }
                 >
-                  <div className="carousel-track">
-                    {carouselImages.map((img, index) => (
-                      <div
-                        key={index}
-                        className={`gallery-slide ${getSlideClass(index)}`}
-                        style={{
-                          backgroundImage: `url("${img}")`,
-                        }}
-                        onClick={() => handleManualNav(index)}
-                      >
-                        <div className="slide-overlay-minimal"></div>
-                      </div>
-                    ))}
+                  <div
+                    className="carousel-track"
+                    aria-live="polite"
+                  >
+                    {carouselImages.map(
+                      (image, index) => (
+                        <div
+                          key={image.src}
+                          className={`gallery-slide ${getSlideClass(
+                            index
+                          )}`}
+                          onClick={() =>
+                            handleManualNav(index)
+                          }
+                          role="group"
+                          aria-roledescription="slide"
+                          aria-label={`${
+                            index + 1
+                          } / ${
+                            carouselImages.length
+                          }`}
+                        >
+                          <img
+                            src={image.src}
+                            alt={image.alt}
+                            loading={
+                              index === 0
+                                ? "eager"
+                                : "lazy"
+                            }
+                            decoding="async"
+                            draggable="false"
+                          />
+
+                          <div
+                            className="slide-overlay-minimal"
+                            aria-hidden="true"
+                          />
+                        </div>
+                      )
+                    )}
                   </div>
 
                   <div className="gallery-controls">
                     <button
+                      type="button"
                       onClick={prevSlide}
                       className="gallery-btn prev"
-                      aria-label="Previous"
+                      aria-label={
+                        isAr
+                          ? "الصورة السابقة"
+                          : "Previous image"
+                      }
                     >
-                      <ChevronLeft size={22} />
+                      <ChevronLeft
+                        size={22}
+                        aria-hidden="true"
+                      />
                     </button>
 
                     <button
+                      type="button"
                       onClick={nextSlide}
                       className="gallery-btn next"
-                      aria-label="Next"
+                      aria-label={
+                        isAr
+                          ? "الصورة التالية"
+                          : "Next image"
+                      }
                     >
-                      <ChevronRight size={22} />
+                      <ChevronRight
+                        size={22}
+                        aria-hidden="true"
+                      />
                     </button>
                   </div>
 
-                  <div className="gallery-counter">
+                  <div
+                    className="gallery-counter"
+                    aria-label={
+                      isAr
+                        ? `الصورة ${
+                            activeSlide + 1
+                          } من ${
+                            carouselImages.length
+                          }`
+                        : `Image ${
+                            activeSlide + 1
+                          } of ${
+                            carouselImages.length
+                          }`
+                    }
+                  >
                     <span className="current">
-                      {String(activeSlide + 1).padStart(2, "0")}
+                      {String(
+                        activeSlide + 1
+                      ).padStart(2, "0")}
                     </span>
 
-                    <span className="divider"></span>
+                    <span
+                      className="divider"
+                      aria-hidden="true"
+                    />
 
                     <span className="total">
-                      {String(carouselImages.length).padStart(2, "0")}
+                      {String(
+                        carouselImages.length
+                      ).padStart(2, "0")}
                     </span>
                   </div>
                 </div>
@@ -193,9 +433,13 @@ export default function HomeClient({ lang = "en", dict }) {
           </div>
         </div>
 
-        <div className="hero-bg-pattern"></div>
+        <div
+          className="hero-bg-pattern"
+          aria-hidden="true"
+        />
       </section>
 
+      {/* ABOUT */}
       <section
         className="section"
         style={{
@@ -205,6 +449,7 @@ export default function HomeClient({ lang = "en", dict }) {
         }}
       >
         <div
+          aria-hidden="true"
           style={{
             position: "absolute",
             top: "10%",
@@ -216,7 +461,7 @@ export default function HomeClient({ lang = "en", dict }) {
               "radial-gradient(circle at 50% 50%, rgba(255, 189, 0, 0.03) 0%, transparent 70%)",
             zIndex: 0,
           }}
-        ></div>
+        />
 
         <div
           className="container"
@@ -242,13 +487,14 @@ export default function HomeClient({ lang = "en", dict }) {
             </h2>
 
             <div
+              aria-hidden="true"
               style={{
                 width: "80px",
                 height: "4px",
                 background: "var(--primary)",
                 margin: "0 auto",
               }}
-            ></div>
+            />
           </div>
 
           <div
@@ -268,6 +514,7 @@ export default function HomeClient({ lang = "en", dict }) {
             >
               <Quote
                 size={80}
+                aria-hidden="true"
                 style={{
                   position: "absolute",
                   top: "-30px",
@@ -281,7 +528,8 @@ export default function HomeClient({ lang = "en", dict }) {
 
               <h3
                 style={{
-                  fontSize: "clamp(1.4rem, 2.8vw, 2.4rem)",
+                  fontSize:
+                    "clamp(1.4rem, 2.8vw, 2.4rem)",
                   fontWeight: "800",
                   color: "var(--black)",
                   lineHeight: "1.25",
@@ -298,22 +546,28 @@ export default function HomeClient({ lang = "en", dict }) {
               className="grid-3"
               style={{
                 gap: "2.5rem",
-                textAlign: isAr ? "right" : "left",
+                textAlign: isAr
+                  ? "right"
+                  : "left",
               }}
             >
               <div
                 className="animate-fade-up delay-2"
                 style={{
                   padding: "2.5rem",
-                  background: "var(--gray-100)",
+                  background:
+                    "var(--gray-100)",
                   borderRadius: "24px",
-                  border: "1px solid #f0f0f0",
-                  transition: "transform 0.3s ease",
+                  border:
+                    "1px solid #f0f0f0",
+                  transition:
+                    "transform 0.3s ease",
                 }}
               >
                 <div
                   style={{
-                    color: "var(--primary)",
+                    color:
+                      "var(--primary)",
                     fontWeight: "900",
                     fontSize: "1.2rem",
                     marginBottom: "1rem",
@@ -324,7 +578,8 @@ export default function HomeClient({ lang = "en", dict }) {
 
                 <p
                   style={{
-                    color: "var(--gray-600)",
+                    color:
+                      "var(--gray-600)",
                     fontSize: "0.95rem",
                     lineHeight: "1.8",
                   }}
@@ -337,15 +592,19 @@ export default function HomeClient({ lang = "en", dict }) {
                 className="animate-fade-up delay-3"
                 style={{
                   padding: "2.5rem",
-                  background: "var(--gray-100)",
+                  background:
+                    "var(--gray-100)",
                   borderRadius: "24px",
-                  border: "1px solid #f0f0f0",
-                  transition: "transform 0.3s ease",
+                  border:
+                    "1px solid #f0f0f0",
+                  transition:
+                    "transform 0.3s ease",
                 }}
               >
                 <div
                   style={{
-                    color: "var(--primary)",
+                    color:
+                      "var(--primary)",
                     fontWeight: "900",
                     fontSize: "1.2rem",
                     marginBottom: "1rem",
@@ -356,7 +615,8 @@ export default function HomeClient({ lang = "en", dict }) {
 
                 <p
                   style={{
-                    color: "var(--gray-600)",
+                    color:
+                      "var(--gray-600)",
                     fontSize: "0.95rem",
                     lineHeight: "1.8",
                   }}
@@ -369,26 +629,33 @@ export default function HomeClient({ lang = "en", dict }) {
                 className="animate-fade-up delay-4"
                 style={{
                   padding: "2.5rem",
-                  background: "var(--gray-100)",
+                  background:
+                    "var(--gray-100)",
                   borderRadius: "24px",
-                  border: "1px solid #f0f0f0",
-                  transition: "transform 0.3s ease",
+                  border:
+                    "1px solid #f0f0f0",
+                  transition:
+                    "transform 0.3s ease",
                 }}
               >
                 <div
                   style={{
-                    color: "var(--primary)",
+                    color:
+                      "var(--primary)",
                     fontWeight: "900",
                     fontSize: "1.2rem",
                     marginBottom: "1rem",
                   }}
                 >
-                  {isAr ? "اليوم" : "Today"}
+                  {isAr
+                    ? "اليوم"
+                    : "Today"}
                 </div>
 
                 <p
                   style={{
-                    color: "var(--gray-600)",
+                    color:
+                      "var(--gray-600)",
                     fontSize: "0.95rem",
                     lineHeight: "1.8",
                   }}
@@ -414,16 +681,18 @@ export default function HomeClient({ lang = "en", dict }) {
         `}</style>
       </section>
 
+      {/* VIDEO */}
       <section
         className="section bg-dark"
         style={{
           padding: "10rem 0",
           position: "relative",
           overflow: "hidden",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <div
+          aria-hidden="true"
           style={{
             position: "absolute",
             top: "0",
@@ -434,7 +703,7 @@ export default function HomeClient({ lang = "en", dict }) {
               "radial-gradient(circle at 50% 50%, rgba(255, 189, 0, 0.08) 0%, transparent 70%)",
             zIndex: 0,
           }}
-        ></div>
+        />
 
         <div
           className="container"
@@ -450,7 +719,8 @@ export default function HomeClient({ lang = "en", dict }) {
                 alignItems: "center",
                 gap: "0.8rem",
                 padding: "0.6rem 1.5rem",
-                background: "rgba(255, 189, 0, 0.1)",
+                background:
+                  "rgba(255, 189, 0, 0.1)",
                 borderRadius: "100px",
                 color: "var(--primary)",
                 fontWeight: "800",
@@ -463,7 +733,9 @@ export default function HomeClient({ lang = "en", dict }) {
               <Play
                 size={14}
                 fill="var(--primary)"
+                aria-hidden="true"
               />
+
               {dict.video.subtitle}
             </div>
 
@@ -472,8 +744,9 @@ export default function HomeClient({ lang = "en", dict }) {
               style={{
                 color: "var(--white)",
                 marginBottom: "2rem",
-                fontSize: "clamp(2rem, 5vw, 3.5rem)",
-                lineHeight: "1.1"
+                fontSize:
+                  "clamp(2rem, 5vw, 3.5rem)",
+                lineHeight: "1.1",
               }}
             >
               {dict.video.title}
@@ -481,9 +754,11 @@ export default function HomeClient({ lang = "en", dict }) {
 
             <p
               style={{
-                color: "var(--gray-400)",
+                color:
+                  "var(--gray-400)",
                 maxWidth: "800px",
-                margin: "0 auto 4rem",
+                margin:
+                  "0 auto 4rem",
                 fontSize: "1.2rem",
                 lineHeight: "1.8",
               }}
@@ -496,14 +771,31 @@ export default function HomeClient({ lang = "en", dict }) {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary btn-glow"
-              style={{ padding: '1.2rem 3rem', fontSize: '1.1rem', borderRadius: '100px' }}
+              aria-label={
+                isAr
+                  ? "مشاهدة فيديو Roto Star"
+                  : "Watch Roto Star video"
+              }
+              style={{
+                padding:
+                  "1.2rem 3rem",
+                fontSize: "1.1rem",
+                borderRadius: "100px",
+              }}
             >
-              <Play size={20} fill="var(--black)" /> {dict.video.cta}
+              <Play
+                size={20}
+                fill="var(--black)"
+                aria-hidden="true"
+              />
+
+              {dict.video.cta}
             </a>
           </div>
         </div>
       </section>
 
+      {/* CREATIVE SECTION */}
       <section
         className="section bg-white"
         style={{
@@ -520,14 +812,17 @@ export default function HomeClient({ lang = "en", dict }) {
           >
             <div
               className={`animate-fade delay-2 ${
-                isAr ? "order-last" : ""
+                isAr
+                  ? "order-last"
+                  : ""
               }`}
             >
               <div
                 style={{
                   borderRadius: "30px",
                   overflow: "hidden",
-                  boxShadow: "0 40px 80px rgba(0,0,0,0.1)",
+                  boxShadow:
+                    "0 40px 80px rgba(0,0,0,0.1)",
                   position: "relative",
                   transform: isAr
                     ? "rotate(2deg)"
@@ -535,8 +830,12 @@ export default function HomeClient({ lang = "en", dict }) {
                 }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2071&auto=format&fit=crop"
-                  alt="Creative Design Studio"
+                  src="/images/carousel/12 en.webp"
+                  alt="Roto Star creative design studio"
+                  width="1200"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     width: "100%",
                     height: "500px",
@@ -545,14 +844,17 @@ export default function HomeClient({ lang = "en", dict }) {
                 />
 
                 <div
+                  aria-hidden="true"
                   style={{
                     position: "absolute",
                     inset: 0,
-                    border: "15px solid rgba(255,255,255,0.1)",
+                    border:
+                      "15px solid rgba(255,255,255,0.1)",
                     borderRadius: "30px",
-                    pointerEvents: "none",
+                    pointerEvents:
+                      "none",
                   }}
-                ></div>
+                />
               </div>
             </div>
 
@@ -562,14 +864,20 @@ export default function HomeClient({ lang = "en", dict }) {
                   display: "flex",
                   alignItems: "center",
                   gap: "0.8rem",
-                  color: "var(--primary)",
+                  color:
+                    "var(--primary)",
                   fontWeight: "800",
                   fontSize: "0.8rem",
                   letterSpacing: "2px",
-                  marginBottom: "1.5rem",
+                  marginBottom:
+                    "1.5rem",
                 }}
               >
-                <Palette size={18} />
+                <Palette
+                  size={18}
+                  aria-hidden="true"
+                />
+
                 {dict.creative.subtitle}
               </div>
 
@@ -577,7 +885,8 @@ export default function HomeClient({ lang = "en", dict }) {
                 style={{
                   fontSize: "3rem",
                   fontWeight: "800",
-                  marginBottom: "2rem",
+                  marginBottom:
+                    "2rem",
                   lineHeight: "1.1",
                 }}
               >
@@ -586,9 +895,11 @@ export default function HomeClient({ lang = "en", dict }) {
 
               <p
                 style={{
-                  marginBottom: "2.5rem",
+                  marginBottom:
+                    "2.5rem",
                   fontSize: "1.1rem",
-                  color: "var(--gray-600)",
+                  color:
+                    "var(--gray-600)",
                   lineHeight: "1.8",
                 }}
               >
@@ -599,48 +910,62 @@ export default function HomeClient({ lang = "en", dict }) {
                 className="flex-column"
                 style={{
                   gap: "1.2rem",
-                  marginBottom: "3.5rem",
+                  marginBottom:
+                    "3.5rem",
                 }}
               >
-                {dict.creative.points.map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex"
-                    style={{
-                      alignItems: "center",
-                      gap: "1rem",
-                      fontWeight: "700",
-                    }}
-                  >
+                {dict.creative.points.map(
+                  (item, i) => (
                     <div
+                      key={i}
+                      className="flex"
                       style={{
-                        width: "8px",
-                        height: "8px",
-                        borderRadius: "50%",
-                        background: "var(--primary)",
+                        alignItems:
+                          "center",
+                        gap: "1rem",
+                        fontWeight:
+                          "700",
                       }}
-                    ></div>
+                    >
+                      <div
+                        aria-hidden="true"
+                        style={{
+                          width: "8px",
+                          height: "8px",
+                          borderRadius:
+                            "50%",
+                          background:
+                            "var(--primary)",
+                        }}
+                      />
 
-                    {item}
-                  </div>
-                ))}
+                      {item}
+                    </div>
+                  )
+                )}
               </div>
 
               <Link
                 href={`/${lang}/products`}
                 className="btn btn-outline"
                 style={{
-                  borderColor: "var(--black)",
-                  color: "var(--black)",
+                  borderColor:
+                    "var(--black)",
+                  color:
+                    "var(--black)",
                 }}
               >
-                {dict.creative.portfolio}
+                {
+                  dict.creative
+                    .portfolio
+                }
               </Link>
             </div>
           </div>
         </div>
       </section>
 
+      {/* STATS */}
       <div
         className="container stats-wrapper"
         style={{
@@ -650,12 +975,18 @@ export default function HomeClient({ lang = "en", dict }) {
         <div className="stats-card-premium">
           <div className="grid-4">
             <div className="stat-item-modern">
-              <div className="stat-icon-wrapper">
+              <div
+                className="stat-icon-wrapper"
+                aria-hidden="true"
+              >
                 <Clock size={24} />
               </div>
 
               <div className="stat-info">
-                <span className="stat-value">28+</span>
+                <span className="stat-value">
+                  28+
+                </span>
+
                 <span className="stat-label">
                   {dict.stats.years}
                 </span>
@@ -663,12 +994,18 @@ export default function HomeClient({ lang = "en", dict }) {
             </div>
 
             <div className="stat-item-modern">
-              <div className="stat-icon-wrapper">
+              <div
+                className="stat-icon-wrapper"
+                aria-hidden="true"
+              >
                 <Users size={24} />
               </div>
 
               <div className="stat-info">
-                <span className="stat-value">300+</span>
+                <span className="stat-value">
+                  300+
+                </span>
+
                 <span className="stat-label">
                   {dict.stats.partners}
                 </span>
@@ -676,27 +1013,47 @@ export default function HomeClient({ lang = "en", dict }) {
             </div>
 
             <div className="stat-item-modern">
-              <div className="stat-icon-wrapper">
+              <div
+                className="stat-icon-wrapper"
+                aria-hidden="true"
+              >
                 <Globe size={24} />
               </div>
 
               <div className="stat-info">
-                <span className="stat-value">50+</span>
+                <span className="stat-value">
+                  50+
+                </span>
+
                 <span className="stat-label">
-                  {dict.stats.destinations}
+                  {
+                    dict.stats
+                      .destinations
+                  }
                 </span>
               </div>
             </div>
 
             <div className="stat-item-modern">
-              <div className="stat-icon-wrapper">
-                <ShieldCheck size={24} />
+              <div
+                className="stat-icon-wrapper"
+                aria-hidden="true"
+              >
+                <ShieldCheck
+                  size={24}
+                />
               </div>
 
               <div className="stat-info">
-                <span className="stat-value">ISO</span>
+                <span className="stat-value">
+                  ISO
+                </span>
+
                 <span className="stat-label">
-                  {dict.stats.certified}
+                  {
+                    dict.stats
+                      .certified
+                  }
                 </span>
               </div>
             </div>
@@ -704,6 +1061,7 @@ export default function HomeClient({ lang = "en", dict }) {
         </div>
       </div>
 
+      {/* PRODUCTS PREVIEW */}
       <section
         className="section bg-light products-preview"
         style={{
@@ -714,16 +1072,23 @@ export default function HomeClient({ lang = "en", dict }) {
           <div
             className="section-header-alt text-center"
             style={{
-              marginBottom: "4rem",
+              marginBottom:
+                "4rem",
             }}
           >
             <div className="header-text animate-fade-up">
               <h3 className="text-primary section-subtitle-small">
-                {dict.showcase.subtitle}
+                {
+                  dict.showcase
+                    .subtitle
+                }
               </h3>
 
               <h2 className="section-title">
-                {dict.showcase.title}
+                {
+                  dict.showcase
+                    .title
+                }
               </h2>
 
               <p
@@ -732,7 +1097,10 @@ export default function HomeClient({ lang = "en", dict }) {
                   margin: "0 auto",
                 }}
               >
-                {dict.showcase.description}
+                {
+                  dict.showcase
+                    .description
+                }
               </p>
             </div>
           </div>
@@ -747,10 +1115,14 @@ export default function HomeClient({ lang = "en", dict }) {
               href={`/${lang}/products`}
               className="btn btn-primary animate-fade-up"
             >
-              {dict.showcase.catalog}
+              {
+                dict.showcase
+                  .catalog
+              }
 
               <ArrowRight
                 size={18}
+                aria-hidden="true"
                 style={{
                   transform: isAr
                     ? "rotate(180deg)"
